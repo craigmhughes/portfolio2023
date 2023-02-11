@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import {Canvas} from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, OrthographicCamera, Stats } from '@react-three/drei';
 import Keyboard from '@/components/Keyboard';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -19,13 +19,23 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div className={styles.canvasWrap}>
-          <Canvas camera={{ manual: true }}>
-            <ambientLight intensity={0.2} />
-            <directionalLight color="white" position={[-1, 1, -1]} intensity={5} />
+          <Canvas>
 
-            <Keyboard scale={0.1} />
+            <ambientLight intensity={1} />
+            <pointLight intensity={2.75} position={[500, 500, 1000]} color="white" />
+
+            <Keyboard scale={0.2} />
 
             <OrbitControls />
+            <OrthographicCamera
+              makeDefault
+              zoom={1}
+              near={1}
+              far={2000}
+              position={[0, 0, 400]}
+            />
+
+            <Stats />
           </Canvas>
         </div>
       </main>
