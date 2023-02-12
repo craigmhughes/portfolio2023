@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, useHelper } from '@react-three/drei';
 import { MeshLambertMaterial, Vector3 } from 'three';
 import { MeshProps } from '@react-three/fiber';
+import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 
 export default function Keyboard({...props}: any) {
   const group = useRef();
@@ -12,8 +13,10 @@ export default function Keyboard({...props}: any) {
 
   const [keys, setKeys] = useState<any[]>([[], [], [], [], []]);
 
+  const rectAreaLightRef = useRef<any>(null!);
+  useHelper(rectAreaLightRef, RectAreaLightHelper, '#161618');
+
   useEffect(() => {
-      console.log(nodes);
     const keyMeshes = [];
 
     for (const i of Array(5).keys()) {
@@ -47,8 +50,11 @@ export default function Keyboard({...props}: any) {
 
   return (
     <group ref={group} {...props} dispose={null}>
-      <mesh {...nodes.Case} castShadow receiveShadow material={material} scale={[1, 0.35, 0.90]} />
-      {...keys}
+        {/* Uncomment to add underglow (Set material = MeshStandardMaterial()) */}
+        {/* <rectAreaLight ref={rectAreaLightRef} position={[0, -35, 0]} args={['#ffffff', 20, 275, 94]} rotation-x={(Math.PI / 2)} /> */}
+
+        <mesh {...nodes.Case} castShadow receiveShadow material={material} scale={[1, 0.35, 0.90]} />
+        {...keys}
     </group>
   );
 }

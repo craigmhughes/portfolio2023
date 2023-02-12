@@ -21,12 +21,11 @@ export default function Home() {
         <div className={styles.canvasWrap}>
           <Canvas>
 
-            <ambientLight intensity={1} />
-            <pointLight intensity={2.75} position={[500, 500, 1000]} color="white" />
+            <ambientLight intensity={0.2} />
+            <pointLight intensity={2.5} position={[500, 500, 1000]} color="white" />
 
-            <Keyboard scale={0.2} />
+            <Keyboard scale={0.6} rotation-x={(Math.PI / 6)} rotation-y={(Math.PI / 4)} />
 
-            <OrbitControls />
             <OrthographicCamera
               makeDefault
               zoom={1}
@@ -35,7 +34,9 @@ export default function Home() {
               position={[0, 0, 400]}
             />
 
-            <Stats />
+
+            {/* <OrbitControls /> */}
+            {/* <Stats /> */}
           </Canvas>
         </div>
       </main>
