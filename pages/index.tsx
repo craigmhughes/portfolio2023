@@ -2,12 +2,14 @@ import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import {Canvas} from '@react-three/fiber';
-import { OrbitControls, OrthographicCamera, Stats } from '@react-three/drei';
+import { OrbitControls, OrthographicCamera, Plane, Stats } from '@react-three/drei';
 import Keyboard from '@/components/Keyboard';
+import { MeshLambertMaterial } from 'three';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const planeMaterial = new MeshLambertMaterial({ color: "#ff0000" });
 
   return (
     <>
@@ -19,19 +21,34 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div className={styles.canvasWrap}>
-          <Canvas>
+          <Canvas shadows="basic">
 
             <ambientLight intensity={0.2} />
-            <pointLight intensity={2.5} position={[500, 500, 1000]} color="white" />
+            <pointLight 
+              intensity={3} 
+              position={[10, 100, 10]} 
+              color="white"
+              castShadow
+            />
 
-            <Keyboard scale={0.6} rotation-x={(Math.PI / 6)} rotation-y={(Math.PI / 4)} />
+            <Plane 
+              scale={290} 
+              material={planeMaterial} 
+              rotation-x={(-Math.PI / 2)}
+              position={[0, -7, 0]}
+              receiveShadow
+            />
+            <Keyboard scale={0.08} position={[0, 0, 0]} castShadow />
 
             <OrthographicCamera
               makeDefault
-              zoom={1}
+              zoom={8}
               near={1}
-              far={2000}
-              position={[0, 0, 400]}
+              far={220}
+              position={[-50, 40, 50]}
+              rotation-x={(-Math.PI / 4)} 
+              rotation-y={(-Math.PI / 4)} 
+              rotation-z={(-Math.PI / 5)}
             />
 
 
