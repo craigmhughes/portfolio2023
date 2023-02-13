@@ -3,15 +3,17 @@ import { useGLTF, useHelper } from '@react-three/drei';
 import { MeshLambertMaterial, Vector3 } from 'three';
 import { MeshProps } from '@react-three/fiber';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
+import { useBox } from '@react-three/cannon';
 
 export default function Keyboard({...props}: any) {
-  const group = useRef();
+  const [ref] = useBox(() => ({ mass: 50000, args: [115, 12, 40], rotation: [-Math.PI / 22, 0, 0], ...props }));
   const { nodes }: any = useGLTF('/keyboard_updated.gltf');
   
   const material = new MeshLambertMaterial({ color: "#161618" });
   const keyGeometry = nodes['Key'].geometry;
 
   const [keys, setKeys] = useState<any[]>([[], [], [], [], []]);
+//   const pos = useRef([0, 0, 0])
 
   const rectAreaLightRef = useRef<any>(null!);
   useHelper(rectAreaLightRef, RectAreaLightHelper, '#161618');
@@ -49,7 +51,7 @@ export default function Keyboard({...props}: any) {
   }, [nodes]);
 
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group {...props} ref={ref}>
         {/* Uncomment to add underglow (Set material = MeshStandardMaterial()) */}
         {/* <rectAreaLight ref={rectAreaLightRef} position={[0, -35, 0]} args={['#ffffff', 20, 275, 94]} rotation-x={(Math.PI / 2)} /> */}
 

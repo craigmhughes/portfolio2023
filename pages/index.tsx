@@ -4,12 +4,25 @@ import styles from '@/styles/Home.module.css'
 import {Canvas} from '@react-three/fiber';
 import { OrbitControls, OrthographicCamera, Plane, Stats } from '@react-three/drei';
 import Keyboard from '@/components/Keyboard';
-import { MeshLambertMaterial } from 'three';
+import { MeshLambertMaterial, MeshPhongMaterial, MeshStandardMaterial } from 'three';
+import { Debug, Physics, useBox, usePlane } from '@react-three/cannon';
+import { useRef } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
+const Ground = ({...props}) => {
+  const [ref] = usePlane(() => ({ rotation: [-Math.PI / 2, 0, 0], ...props }));
+
+  return (
+    <Plane ref={ref} {...props} />
+  );
+};
+
 export default function Home() {
-  const planeMaterial = new MeshLambertMaterial({ color: "#ff0000" });
+  const groundRef = useRef();
+
+  // Dark = #000001; Light = #222222;
+  const planeMaterial = new MeshLambertMaterial({ color: "#222222" });
 
   return (
     <>
@@ -21,30 +34,45 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div className={styles.canvasWrap}>
-          <Canvas shadows="basic">
+          <Canvas shadows="soft">
 
-            <ambientLight intensity={0.2} />
+            <ambientLight intensity={1} />
             <pointLight 
-              intensity={3} 
-              position={[10, 100, 10]} 
-              color="white"
+              intensity={6}
+              decay={0.1}
+              position={[60, 100, 60]} 
+              color="#3377ff"
               castShadow
             />
 
-            <Plane 
-              scale={290} 
-              material={planeMaterial} 
-              rotation-x={(-Math.PI / 2)}
-              position={[0, -7, 0]}
-              receiveShadow
+            <pointLight 
+              intensity={6}
+              position={[-120, 40, -100]} 
+              color="#ffffff"
             />
-            <Keyboard scale={0.08} position={[0, 0, 0]} castShadow />
+
+            <Physics>
+                <Keyboard 
+                  scale={0.08} 
+                  position={[0, 20, 0]}
+                  rotation-x={(Math.PI / 4)}
+                  castShadow 
+                />
+                <Ground 
+                  ref={groundRef}
+                  scale={290}
+                  rotation-x={(-Math.PI / 2)}
+                  position={[0, -7, 0]}
+                  receiveShadow
+                  material={planeMaterial}
+                />
+            </Physics>
 
             <OrthographicCamera
               makeDefault
               zoom={8}
-              near={1}
-              far={220}
+              near={-100}
+              far={280}
               position={[-50, 40, 50]}
               rotation-x={(-Math.PI / 4)} 
               rotation-y={(-Math.PI / 4)} 
