@@ -34,7 +34,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div className={styles.canvasWrap}>
-          <Canvas shadows="soft">
+          <Canvas shadows="soft" frameloop="demand" performance={{ min: 0.5 }}>
 
             <ambientLight intensity={1} />
             <pointLight 
