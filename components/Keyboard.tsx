@@ -8,62 +8,41 @@ import { useSpring, animated } from '@react-spring/three';
 import { generateUUID } from 'three/src/math/MathUtils';
 
 const keyIndexes = [
-    [27, 49, 50, 51, 52, 53, 54, 55, 56, 57, 189, 187, 8],
+    [27, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 189, 187, 8],
     [9, 81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 219, 221, 13],
     [20, 65, 83, 68, 70, 71, 72, 74, 75, 76, 186, 222, 220],
     [16, 220, 90, 77, 67, 86, 66, 78, 77, 188, 190, 191, 16],
-    [17, 18, 91, 32, 18, 999, 999, 999],
+    [17, 91, 18, 32, 18, 999, 999, 999],
 ];
 
 export default function Keyboard({...props}: any) {
   const [ref] = useBox(() => ({ mass: 50000, args: [115, 12, 40], rotation: [-Math.PI / 22, 0, 0], ...props }));
-  const { nodes }: any = useGLTF('/keyboard_updated.gltf');
+  const { nodes }: any = useGLTF('/keyboard_updated2.gltf');
   
   const material = new MeshLambertMaterial({ color: "#161618" });
   const keyGeometry = nodes['Key'].geometry;
   const yBounds = [0, 20];
 
   const [keys, setKeys] = useState<any[]>([[], [], [], [], []]);
-  const [pressedDown, setPressedDown] = useState<Object3D<Event>[] | undefined>();
-  const [pressedUp, setPressedUp] = useState<Object3D<Event>[] | undefined>();
+  const pressedDown = useRef<Object3D<Event>[] | undefined>();
+  const timePressed = useRef<number[] | []>([]);
   const rectAreaLightRef = useRef<any>(null!);
   useHelper(rectAreaLightRef, RectAreaLightHelper, '#161618');
 
   const handleDown = useCallback((e: any) => {
       const pressedValidKey = keyIndexes.flat().includes(e.keyCode);
+      console.log({keyCode: e.keyCode});
       if (!pressedValidKey) return;
 
-      const keyPressed = ref.current?.getObjectByName(`key-${e.keyCode}`);
+      const keyPressed = ref.current?.getObjectByName(`key-${e.keyCode}`) as Object3D<Event>;
+      console.log({keyCode: e.keyCode, keyPressed});
 
-      console.log(keyPressed);
-
-      if (!!keyPressed && !pressedDown?.includes(keyPressed as Object3D<Event>)) {
-          const newPressed: Object3D<Event>[] | undefined = pressedDown 
-            ? [...pressedDown, keyPressed as Object3D<Event>]
-            : [keyPressed as Object3D<Event>];
-          setPressedDown(newPressed);
+      if (!!keyPressed && !pressedDown.current?.includes(keyPressed)) {
+          const newPressed: Object3D<Event>[] | undefined = pressedDown.current ? [...pressedDown.current] : [];
+          newPressed.push(keyPressed);
+          pressedDown.current = newPressed;
       }
-
-      console.log(pressedDown);
   }, [pressedDown, keys, ref]);
-
-  const handleUp = useCallback((e: any) => {
-    const pressedValidKey = keyIndexes.flat().includes(e.keyCode);
-    if (!pressedValidKey) return;
-
-    const keyPressed = ref.current?.getObjectByName(`key-${e.keyCode}`);
-
-    console.log(keyPressed);
-
-    if (!!keyPressed && !pressedUp?.includes(keyPressed as Object3D<Event>)) {
-        const newPressed: Object3D<Event>[] | undefined = pressedUp 
-          ? [...pressedUp, keyPressed as Object3D<Event>]
-          : [keyPressed as Object3D<Event>];
-          setPressedUp(newPressed);
-    }
-
-    console.log(pressedUp);
-}, [pressedUp, keys, ref]);
 
   useEffect(() => {
     const keyMeshes = [];
@@ -97,36 +76,50 @@ export default function Keyboard({...props}: any) {
         keyMeshes.push(rowChildren);
     }
 
-    setKeys(keyMeshes.flat());
+    setKeys(keyMeshes);
   }, [nodes]);
 
   useEffect(() => {
     document.addEventListener('keydown', handleDown);
-    document.addEventListener('keyup', handleUp);
-  }, [keys, pressedDown]);
+  }, [keys]);
 
   useEffect(() => {
     return () => {
         document.removeEventListener('keydown', handleDown);
-        document.removeEventListener('keyup', handleUp);
     }
   }, []);
 
-  useFrame(() => {
-      if (pressedDown?.length || pressedUp?.length) {
-        for (const key of pressedDown) {
-            if (key.position.y > yBounds[0] && !pressedUp?.includes(key)) {
-                key.position.set(key.position.x, key.position.y - 1.5, key.position.z);
-            } else if (key.position.y < yBounds[1] && pressedUp?.includes(key)) {
-                key.position.set(key.position.x, key.position.y + 1.5, key.position.z);
-            } else if (key.position.y >= yBounds[1] && pressedUp?.includes(key) && pressedDown?.includes(key)) {
-                setPressedUp(pressedUp.filter((i) => i.name !== key.name));
-                setPressedDown(pressedDown.filter((i) => i.name !== key.name));
-                // console.log(pressedUp, pressedUp.filter((i) => i.name === key.name));
-            }
+  useFrame(({clock}) => {
+    if (!pressedDown.current?.length) {
+      timePressed.current = [];
+      pressedDown.current = [];
+      return;
+    };
+
+    for (const key of pressedDown.current) {
+      const timeKeyWasHit = timePressed.current[pressedDown.current.indexOf(key)];
+      if (!timeKeyWasHit) {
+        const newTimes = [...timePressed.current];
+        newTimes.push(clock.getElapsedTime());
+        timePressed.current = (newTimes);
+      } else {
+        const timeSinceKeyHit = clock.getElapsedTime() - timeKeyWasHit;
+
+        if (0.5 > timeSinceKeyHit) {
+          key.position.y -= key.position.y > 0 ? 1.25 : 0;
+        } else if ((1 > timeSinceKeyHit && timeSinceKeyHit >= 0.5)) {
+          key.position.y += key.position.y < 20 ? 1.25 : 0;
+        } else {
+          key.position.y = 20;
+          const newPressed: Object3D<Event>[] = pressedDown.current.length === 1 && pressedDown.current.indexOf(key) === 0 ? [] : [...pressedDown.current].splice(pressedDown.current.indexOf(key));
+          console.log(pressedDown.current, newPressed);
+          const newTimes = [...timePressed.current].splice(pressedDown.current.indexOf(key));
+          pressedDown.current = newPressed;
+          timePressed.current = newTimes;
         }
-    } 
-  })
+      }
+    }
+  });
 
   return (
     <animated.group 
