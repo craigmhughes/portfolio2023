@@ -10,9 +10,9 @@ import { generateUUID } from 'three/src/math/MathUtils';
 const keyIndexes = [
     [27, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 189, 187, 8],
     [9, 81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 219, 221, 13],
-    [20, 65, 83, 68, 70, 71, 72, 74, 75, 76, 186, 222, 220],
-    [16, 220, 90, 77, 67, 86, 66, 78, 77, 188, 190, 191, 16],
-    [17, 91, 18, 32, 18, 999, 999, 999],
+    [20, 65, 83, 68, 70, 71, 72, 74, 75, 76, 186, 192, 222],
+    [16, 220, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 16],
+    [17, 91, 18, 32, 37, 40, 39],
 ];
 
 export default function Keyboard({...props}: any) {
@@ -106,9 +106,9 @@ export default function Keyboard({...props}: any) {
         const timeSinceKeyHit = clock.getElapsedTime() - timeKeyWasHit;
 
         if (0.5 > timeSinceKeyHit) {
-          key.position.y -= key.position.y > 0 ? 1.25 : 0;
+          key.position.y -= key.position.y > yBounds[0] ? 1.25 : 0;
         } else if ((1 > timeSinceKeyHit && timeSinceKeyHit >= 0.5)) {
-          key.position.y += key.position.y < 20 ? 1.25 : 0;
+          key.position.y += key.position.y < yBounds[1] ? 1.25 : 0;
         } else {
           key.position.y = 20;
           const newPressed: Object3D<Event>[] = pressedDown.current.length === 1 && pressedDown.current.indexOf(key) === 0 ? [] : [...pressedDown.current].splice(pressedDown.current.indexOf(key));
