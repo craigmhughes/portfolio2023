@@ -1,4 +1,4 @@
-:sparkles: feature: ['feature/*', 'feat/*']
-:bug: fix: fix/*
-:book: chore: chore/*
-:shield: dependency: ['dependency/*', 'deps/*']
+feature :sparkles:: ['feature/*', 'feat/*']
+fix :bug:: fix/*
+chore :book:: chore/*
+dependency :shield:: ['dependency/*', 'deps/*']
