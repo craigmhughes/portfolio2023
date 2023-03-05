@@ -1,0 +1,4 @@
+feature :sparkles:: ['feature/*', 'feat/*']
+fix :bug:: fix/*
+chore :book:: chore/*
+dependency :shield:: ['dependency/*', 'deps/*']
