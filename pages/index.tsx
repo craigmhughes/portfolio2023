@@ -19,7 +19,7 @@ function Ground({...props}: any): JSX.Element {
     return <Plane {...props} ref={ref} />;
 }
 
-const Home: NextPage = () => {
+const Home: NextPage = (): JSX.Element => {
     const groundRef = useRef();
 
     // Dark = #000001; Light = #222222;
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
             </Head>
             <main className={styles.main}>
                 <div className={styles.canvasWrap}>
-                    <Canvas shadows="soft">
+                    <Canvas shadows="soft" frameloop="demand" performance={{min: 0.5}}>
                         <ambientLight intensity={1} />
                         <pointLight intensity={6} decay={0.1} position={[60, 100, 60]} color="#3377ff" castShadow />
 
