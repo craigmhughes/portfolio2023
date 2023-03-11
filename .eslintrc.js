@@ -27,5 +27,6 @@ module.exports = {
         'react/function-component-definition': 0,
         'no-restricted-syntax': 0,
         '@typescript-eslint/strict-boolean-expressions': 0,
+        'import/no-extraneous-dependencies': ['error', {'devDependencies': false, 'optionalDependencies': false, 'peerDependencies': false}]
     },
 };

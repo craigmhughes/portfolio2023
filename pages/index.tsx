@@ -1,17 +1,16 @@
+import {animated, useSpring} from '@react-spring/three';
 import {Physics, usePlane} from '@react-three/cannon';
 import {OrthographicCamera, Plane} from '@react-three/drei';
 import {Canvas} from '@react-three/fiber';
 
 import type {NextPage} from 'next';
 import Head from 'next/head';
-import {useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {MeshLambertMaterial} from 'three';
 
 import Keyboard from '@/components/Keyboard';
+import Text, {animateText} from '@/components/Text';
 import styles from '@/styles/Home.module.css';
-
-// import {Inter} from '@next/font/google';
-// const inter = Inter({subsets: ['latin']});
 
 function Ground({...props}: any): JSX.Element {
     const [ref] = usePlane(() => ({rotation: [-Math.PI / 2, 0, 0], ...props}));
@@ -19,11 +18,42 @@ function Ground({...props}: any): JSX.Element {
     return <Plane {...props} ref={ref} />;
 }
 
+const initAnimationStages = {
+    introMessage: false,
+};
+
 const Home: NextPage = (): JSX.Element => {
     const groundRef = useRef();
+    const [animationStages, setAnimationStages] = useState<Record<string, boolean>>({...initAnimationStages});
+    const [subtitleText, setSubtitleText] = useState('');
 
     // Dark = #000001; Light = #222222;
-    const planeMaterial = new MeshLambertMaterial({color: '#222222'});
+    const planeMaterial = new MeshLambertMaterial({color: '#ffffff'});
+
+    const introMessageStyles = useSpring({
+        opacity: animationStages.introMessage ? 1 : 0,
+        scale: animationStages.introMessage ? 1 : 0,
+        'position-x': animationStages.introMessage2 ? -10 : 0,
+    });
+
+    useEffect(() => {
+        setTimeout(() => {
+            setAnimationStages({
+                ...initAnimationStages,
+                introMessage: true,
+            });
+        }, 2000);
+
+        setTimeout(() => {
+            setAnimationStages({
+                ...initAnimationStages,
+                introMessage: true,
+                introMessage2: true,
+            });
+        }, 2500);
+
+        animateText('Use your keyboard to enter commands!', setSubtitleText);
+    }, []);
 
     return (
         <>
@@ -35,17 +65,27 @@ const Home: NextPage = (): JSX.Element => {
             </Head>
             <main className={styles.main}>
                 <div className={styles.canvasWrap}>
-                    <Canvas shadows="soft" frameloop="demand" performance={{min: 0.5}}>
+                    <Canvas shadows="soft">
                         <ambientLight intensity={1} />
                         <pointLight intensity={6} decay={0.1} position={[60, 100, 60]} color="#3377ff" castShadow />
 
                         <pointLight intensity={6} position={[-120, 40, -100]} color="#ffffff" />
 
-                        <Physics>
+                        <animated.group {...introMessageStyles}>
+                            <Text position={[10, 10, -30]} rotation-x={-Math.PI / 4}>
+                                {!animationStages.introMessage2 ? 'hello, ' : 'hello, user.'}
+                            </Text>
+                        </animated.group>
+
+                        <Text position={[-16, 5, -25]} rotation-x={-Math.PI / 4} scale={0.35}>
+                            {subtitleText}
+                        </Text>
+
+                        <Physics gravity={[0, -50, 0]}>
                             <Keyboard scale={0.08} position={[0, 20, 0]} rotation-x={Math.PI / 4} castShadow />
                             <Ground
                                 ref={groundRef}
-                                scale={290}
+                                scale={400}
                                 rotation-x={-Math.PI / 2}
                                 position={[0, -7, 0]}
                                 receiveShadow
