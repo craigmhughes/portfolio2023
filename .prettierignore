@@ -6,3 +6,6 @@ coverage
 .next
 .husky
 .github
+
+# Ignore Font Files
+public/static/**/*.json
