@@ -50,9 +50,11 @@ const Home: NextPage = (): JSX.Element => {
                 introMessage: true,
                 introMessage2: true,
             });
-        }, 2500);
 
-        animateText('Use your keyboard to enter commands!', setSubtitleText);
+            setTimeout(() => {
+                animateText('Use your keyboard to enter commands!', setSubtitleText);
+            }, 500);
+        }, 2500);
     }, []);
 
     return (
@@ -82,7 +84,13 @@ const Home: NextPage = (): JSX.Element => {
                         </Text>
 
                         <Physics gravity={[0, -50, 0]}>
-                            <Keyboard scale={0.08} position={[0, 20, 0]} rotation-x={Math.PI / 4} castShadow />
+                            <Keyboard
+                                scale={0.08}
+                                position={[0, 20, 0]}
+                                rotation-x={Math.PI / 4}
+                                castShadow
+                                keysPressed={subtitleText}
+                            />
                             <Ground
                                 ref={groundRef}
                                 scale={400}
