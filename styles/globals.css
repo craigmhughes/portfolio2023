@@ -32,4 +32,5 @@ body,
 body > div {
     min-height: 100vh;
     background: #222222;
+    margin: 0;
 }
