@@ -32,6 +32,6 @@ module.exports = {
             Temp workaround = import/no-extraneous-dependencies: 0
         */
         'import/no-extraneous-dependencies': 0,
-        'no-plusplus': ['error', { 'allowForLoopAfterthoughts': true }]
+        'no-plusplus': ['error', {allowForLoopAfterthoughts: true}],
     },
 };

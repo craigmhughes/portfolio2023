@@ -32,6 +32,8 @@ export default function Keyboard({...props}: any): JSX.Element {
     const rectAreaLightRef = useRef<any>(null);
     useHelper(rectAreaLightRef, RectAreaLightHelper, '#161618');
 
+    const {keysPressed} = props;
+
     const handleDown = useCallback(
         (e: KeyboardEvent) => {
             const pressedValidKey = keyIndexes.flat().includes(e.keyCode);
@@ -96,6 +98,19 @@ export default function Keyboard({...props}: any): JSX.Element {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [keys]);
+
+    useEffect(() => {
+        if (!pressedDown.current) return;
+
+        const selectKeys = keysPressed.slice(0, Math.round(keysPressed.length / 15));
+
+        for (const key of selectKeys) {
+            const rowIdx = Math.floor(Math.random() * (keyIndexes.length - 1) + 1);
+            const colIdx = Math.floor(Math.random() * (keyIndexes[rowIdx].length - 2) + 1);
+            const keydown = new KeyboardEvent('keydown', {key, keyCode: keyIndexes[rowIdx][colIdx]});
+            document.dispatchEvent(keydown);
+        }
+    }, [keysPressed]);
 
     useFrame(({clock}) => {
         if (!pressedDown.current?.length) {
