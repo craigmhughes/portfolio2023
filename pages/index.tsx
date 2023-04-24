@@ -5,7 +5,8 @@ import {Canvas} from '@react-three/fiber';
 
 import type {NextPage} from 'next';
 import Head from 'next/head';
-import {useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import FocusLock from 'react-focus-lock';
 import {MeshLambertMaterial} from 'three';
 
 import Keyboard from '@/components/Keyboard';
@@ -26,6 +27,26 @@ const Home: NextPage = (): JSX.Element => {
     const groundRef = useRef();
     const [animationStages, setAnimationStages] = useState<Record<string, boolean>>({...initAnimationStages});
     const [subtitleText, setSubtitleText] = useState('');
+
+    const cmdBox = useRef<HTMLInputElement>(null);
+    const [cmdText, setCmdText] = useState('');
+    const [cmdCtrl, setCmdCtrl] = useState<[string, string]>(['', '']);
+    const cmdState = useMemo(() => {
+        if (['control', 'command'].includes(cmdCtrl[1].toLowerCase()) && cmdCtrl[0].toLowerCase() === 'a') {
+            return 'bg-slate-500 text-black';
+        }
+
+        return '';
+    }, [cmdCtrl]);
+
+    const updateKeys = useCallback(
+        (e: KeyboardEvent) => {
+            const {key} = e;
+            if (key === cmdCtrl[0] && key === cmdCtrl[1]) return;
+            setCmdCtrl([key, cmdCtrl[0]]);
+        },
+        [cmdCtrl, setCmdCtrl],
+    );
 
     // Dark = #000001; Light = #222222;
     const planeMaterial = new MeshLambertMaterial({color: '#ffffff'});
@@ -57,6 +78,13 @@ const Home: NextPage = (): JSX.Element => {
         }, 2500);
     }, []);
 
+    useEffect(() => {
+        document.addEventListener('keydown', updateKeys);
+        return () => {
+            document.removeEventListener('keydown', updateKeys);
+        };
+    }, [updateKeys]);
+
     return (
         <>
             <Head>
@@ -65,7 +93,32 @@ const Home: NextPage = (): JSX.Element => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className={styles.main}>
+            {/* eslint-disable */}
+            <main
+                className={styles.main}
+                onClick={() => {
+                    if (cmdBox.current) cmdBox.current.focus();
+                }}
+            >
+            {/* eslint-enable */}
+                <FocusLock>
+                    <input
+                        type="text"
+                        className="fixed bottom-5 right-5 z-20 opacity-0"
+                        ref={cmdBox}
+                        onChange={(e) => {
+                            setCmdText(e.target.value);
+                        }}
+                        // eslint-disable-next-line
+                        autoFocus
+                    />
+                </FocusLock>
+
+                <div className="mockup-code fixed bottom-5 right-5 z-10 w-[calc(100%_-_2.5rem)] max-w-2xl">
+                    <pre data-prefix="$">
+                        <code className={cmdState}>{cmdText}</code>
+                    </pre>
+                </div>
                 <div className={styles.canvasWrap}>
                     <Canvas shadows="soft">
                         <ambientLight intensity={1} />
@@ -106,7 +159,7 @@ const Home: NextPage = (): JSX.Element => {
                             zoom={8}
                             near={-100}
                             far={280}
-                            position={[-50, 40, 50]}
+                            position={[-67, 38, 50]}
                             rotation-x={-Math.PI / 4}
                             rotation-y={-Math.PI / 4}
                             rotation-z={-Math.PI / 5}
