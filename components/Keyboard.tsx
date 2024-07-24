@@ -23,6 +23,7 @@ export default function Keyboard({...props}: any): JSX.Element {
     const {nodes}: any = useGLTF('/keyboard_updated2.gltf');
 
     const material = new MeshLambertMaterial({color: '#161618'});
+    // const material = new MeshLambertMaterial({color: '#222222'});
     const keyGeometry = nodes.Key.geometry;
     const yBounds = [0, 20];
 

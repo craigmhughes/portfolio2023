@@ -1,6 +1,5 @@
-import {animated, useSpring} from '@react-spring/three';
 import {Physics, usePlane} from '@react-three/cannon';
-import {OrthographicCamera, Plane} from '@react-three/drei';
+import {OrbitControls, OrthographicCamera, Plane} from '@react-three/drei';
 import {Canvas} from '@react-three/fiber';
 
 import type {NextPage} from 'next';
@@ -9,8 +8,8 @@ import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import FocusLock from 'react-focus-lock';
 import {MeshLambertMaterial} from 'three';
 
+import IntroText from '@/components/IntroText';
 import Keyboard from '@/components/Keyboard';
-import Text, {animateText} from '@/components/Text';
 import styles from '@/styles/Home.module.css';
 
 function Ground({...props}: any): JSX.Element {
@@ -19,13 +18,11 @@ function Ground({...props}: any): JSX.Element {
     return <Plane {...props} ref={ref} />;
 }
 
-const initAnimationStages = {
-    introMessage: false,
-};
+// Dark = #000001; Light = #222222;
+const planeMaterial = new MeshLambertMaterial({});
 
 const Home: NextPage = (): JSX.Element => {
     const groundRef = useRef();
-    const [animationStages, setAnimationStages] = useState<Record<string, boolean>>({...initAnimationStages});
     const [subtitleText, setSubtitleText] = useState('');
 
     const cmdBox = useRef<HTMLInputElement>(null);
@@ -47,36 +44,6 @@ const Home: NextPage = (): JSX.Element => {
         },
         [cmdCtrl, setCmdCtrl],
     );
-
-    // Dark = #000001; Light = #222222;
-    const planeMaterial = new MeshLambertMaterial({color: '#ffffff'});
-
-    const introMessageStyles = useSpring({
-        opacity: animationStages.introMessage ? 1 : 0,
-        scale: animationStages.introMessage ? 1 : 0,
-        'position-x': animationStages.introMessage2 ? -10 : 0,
-    });
-
-    useEffect(() => {
-        setTimeout(() => {
-            setAnimationStages({
-                ...initAnimationStages,
-                introMessage: true,
-            });
-        }, 2000);
-
-        setTimeout(() => {
-            setAnimationStages({
-                ...initAnimationStages,
-                introMessage: true,
-                introMessage2: true,
-            });
-
-            setTimeout(() => {
-                animateText('Use your keyboard to enter commands!', setSubtitleText);
-            }, 500);
-        }, 2500);
-    }, []);
 
     useEffect(() => {
         document.addEventListener('keydown', updateKeys);
@@ -100,7 +67,7 @@ const Home: NextPage = (): JSX.Element => {
                     if (cmdBox.current) cmdBox.current.focus();
                 }}
             >
-            {/* eslint-enable */}
+                {/* eslint-enable */}
                 <FocusLock>
                     <input
                         type="text"
@@ -121,20 +88,11 @@ const Home: NextPage = (): JSX.Element => {
                 </div>
                 <div className={styles.canvasWrap}>
                     <Canvas shadows="soft">
-                        <ambientLight intensity={1} />
-                        <pointLight intensity={6} decay={0.1} position={[60, 100, 60]} color="#3377ff" castShadow />
-
+                        <ambientLight intensity={1} castShadow />
+                        <pointLight intensity={6} position={[60, 100, 60]} color="#3377ff" castShadow />
                         <pointLight intensity={6} position={[-120, 40, -100]} color="#ffffff" />
 
-                        <animated.group {...introMessageStyles}>
-                            <Text position={[10, 10, -30]} rotation-x={-Math.PI / 4}>
-                                {!animationStages.introMessage2 ? 'hello, ' : 'hello, user.'}
-                            </Text>
-                        </animated.group>
-
-                        <Text position={[-16, 5, -25]} rotation-x={-Math.PI / 4} scale={0.35}>
-                            {subtitleText}
-                        </Text>
+                        <IntroText subtitleText={subtitleText} setSubtitleText={setSubtitleText} />
 
                         <Physics gravity={[0, -50, 0]}>
                             <Keyboard
@@ -159,13 +117,13 @@ const Home: NextPage = (): JSX.Element => {
                             zoom={8}
                             near={-100}
                             far={280}
-                            position={[-67, 38, 50]}
+                            position={[-67, 50, 50]}
                             rotation-x={-Math.PI / 4}
                             rotation-y={-Math.PI / 4}
                             rotation-z={-Math.PI / 5}
                         />
 
-                        {/* <OrbitControls /> */}
+                        <OrbitControls />
                         {/* <Stats /> */}
                     </Canvas>
                 </div>
