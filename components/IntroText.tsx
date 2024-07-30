@@ -5,12 +5,6 @@ import type {Dispatch, ReactElement, SetStateAction} from 'react';
 
 import Text, {animateText} from '@/components/Text';
 
-/**
- * - Please do NOT modify this file.
- * - Please do NOT serve this
- *   file on production.
- */
-
 const initAnimationStages = {
     introMessage: false,
 };
@@ -26,7 +20,7 @@ function IntroText({subtitleText, setSubtitleText}: IntroTextProps): ReactElemen
     const introMessageStyles = useSpring({
         opacity: animationStages.introMessage ? 1 : 0,
         scale: animationStages.introMessage ? 1 : 0,
-        'position-x': animationStages.introMessage2 ? -10 : 0,
+        'position-x': animationStages.introMessage2 ? -35 : 0,
     });
 
     useEffect(() => {
@@ -45,18 +39,20 @@ function IntroText({subtitleText, setSubtitleText}: IntroTextProps): ReactElemen
             });
 
             setTimeout(() => {
-                animateText('Use your keyboard to search me!', setSubtitleText);
+                animateText('Use your keyboard to search for keywords', setSubtitleText);
             }, 500);
         }, 2500);
     }, [setSubtitleText]);
 
     return (
-        <group rotation-y={Math.PI / 150} rotation-x={-Math.PI / 4} position={[0, 20, -10]}>
+        <group rotation-x={-Math.PI / 4} position={[0, 15, -5]}>
             <animated.group {...introMessageStyles}>
-                <Text position={[7, 11, -25]}>{!animationStages.introMessage2 ? 'hello, ' : 'hello, user.'}</Text>
+                <Text position={[0, 11, -25]}>
+                    {!animationStages.introMessage2 ? 'Hi there, ' : 'Hi there, take a look around!'}
+                </Text>
             </animated.group>
 
-            <Text position={[-16, 5, -25]} scale={0.35}>
+            <Text position={[-16, 2, -25]} scale={0.35}>
                 {subtitleText}
             </Text>
         </group>
