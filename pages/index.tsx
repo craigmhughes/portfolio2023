@@ -6,17 +6,29 @@ import type {NextPage} from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {X} from 'react-feather';
 import FocusLock from 'react-focus-lock';
 import {MeshLambertMaterial} from 'three';
 
+import Button from '@/components/Button';
 // import IntroText from '@/components/IntroText';
 import Keyboard from '@/components/Keyboard';
+import {searchResults} from '@/components/search-results';
+import type {SearchResultEntry} from '@/components/search-results';
 import styles from '@/styles/Home.module.css';
 
 function Ground({...props}: any): JSX.Element {
     const [ref] = usePlane(() => ({rotation: [-Math.PI / 2, 0, 0], ...props}));
 
     return <Plane {...props} ref={ref} />;
+}
+
+function isMatchedResult(result: SearchResultEntry, searchText: string): boolean {
+    const checkKey = (k: keyof typeof result): boolean =>
+        result[k]?.toString().toLowerCase().includes(searchText.toLowerCase()) ?? false;
+    const hasTopic = result.topics?.map((j) => j.toLowerCase()).includes(searchText.toLowerCase());
+
+    return [...['content', 'title'].map((k) => checkKey(k as keyof typeof result)), hasTopic].includes(true);
 }
 
 // Dark = #000001; Light = #222222;
@@ -54,6 +66,7 @@ const Home: NextPage = (): JSX.Element => {
         };
     }, [updateKeys]);
 
+    // Three.js has trouble hot-reloading & requires a full refresh sometimes. Enable this to test UI changes quickly.
     const testing = true;
 
     return (
@@ -114,6 +127,37 @@ const Home: NextPage = (): JSX.Element => {
                         <p className="mt-5">
                             Or, <span className="underline cursor-pointer">Skip to the website</span>
                         </p>
+                    </div>
+
+                    {!!cmdText && (
+                        <Button
+                            className="absolute right-3 bottom-[70px] hover:bg-gray-800 z-20 bg-transparent border text-white font-light flex items-center gap-1 px-2"
+                            emphasis="medium"
+                            onClick={() => {
+                                setCmdText('');
+                                if (cmdBox.current) cmdBox.current.value = '';
+                            }}
+                        >
+                            Clear <X className="relative -right-1 h-3 w-3" />
+                        </Button>
+                    )}
+
+                    <div className="text-sm absolute bottom-[120px] right-0 max-w-lg font-normal overflow-y-scroll no-scrollbar max-h-[500px] rounded-md">
+                        {searchResults
+                            .filter((i) => (cmdText ? isMatchedResult(i, cmdText) : false))
+                            .map((searchResult) => (
+                                <div className="py-3 px-4 bg-white my-2 rounded" key={searchResult.title}>
+                                    <p className="text-lg font-semibold">{searchResult.title}</p>
+                                    <p>{searchResult.content}</p>
+                                    {searchResult.icon ?? ''}
+
+                                    <div className="flex items-end w-full justify-end px-4">
+                                        <Link href="/" className="link py-1">
+                                            Read more
+                                        </Link>
+                                    </div>
+                                </div>
+                            ))}
                     </div>
 
                     <div className="mockup-code absolute bottom-5 right-0 w-[calc(100%_-_2.5rem)] max-w-2xl">
