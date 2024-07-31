@@ -4,6 +4,7 @@ import {Canvas} from '@react-three/fiber';
 
 import type {NextPage} from 'next';
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {X} from 'react-feather';
@@ -15,6 +16,7 @@ import Button from '@/components/Button';
 import Keyboard from '@/components/Keyboard';
 import {searchResults} from '@/components/search-results';
 import type {SearchResultEntry} from '@/components/search-results';
+import profile from '@/public/profile.jpg';
 import styles from '@/styles/Home.module.css';
 
 function Ground({...props}: any): JSX.Element {
@@ -67,7 +69,7 @@ const Home: NextPage = (): JSX.Element => {
     }, [updateKeys]);
 
     // Three.js has trouble hot-reloading & requires a full refresh sometimes. Enable this to test UI changes quickly.
-    const testing = true;
+    const testing = false;
 
     return (
         <>
@@ -121,9 +123,16 @@ const Home: NextPage = (): JSX.Element => {
                         className="max-w-lg text-2xl tracking-tighter font-semibold absolute bottom-[350px] left-10 items-center justify-center flex-col"
                     >
                         <h1 className="text-7xl my-4">Hi there!</h1>
-                        <p className="">
-                            I left my keyboard here, try searching some keywords to find more out about me!
-                        </p>
+                        <div className="chat chat-start">
+                            <div className="chat-image avatar">
+                                <div className="w-10 rounded-full">
+                                    <Image alt="Tailwind CSS chat bubble component" src={profile.src} />
+                                </div>
+                            </div>
+                            <div className="chat-bubble">
+                                I left my keyboard here, try searching some keywords to find more out about me!
+                            </div>
+                        </div>
                         <p className="mt-5">
                             Or, <span className="underline cursor-pointer">Skip to the website</span>
                         </p>
@@ -142,19 +151,40 @@ const Home: NextPage = (): JSX.Element => {
                         </Button>
                     )}
 
-                    <div className="text-sm absolute bottom-[120px] right-0 max-w-lg font-normal overflow-y-scroll no-scrollbar max-h-[500px] rounded-md">
+                    <div className="text-sm absolute bottom-[120px] right-0 max-w-lg font-normal overflow-y-scroll no-scrollbar max-h-[500px] rounded-md items-end flex flex-col">
                         {searchResults
                             .filter((i) => (cmdText ? isMatchedResult(i, cmdText) : false))
                             .map((searchResult) => (
-                                <div className="py-3 px-4 bg-white my-2 rounded" key={searchResult.title}>
-                                    <p className="text-lg font-semibold">{searchResult.title}</p>
-                                    <p>{searchResult.content}</p>
-                                    {searchResult.icon ?? ''}
+                                <div
+                                    className={`${styles.searchResult} py-3 px-4 bg-midnight text-daylight my-2 rounded cursor-pointer`}
+                                    key={searchResult.title}
+                                    style={{
+                                        maxWidth: `calc(100% - ${searchResult.widthOffset ?? Math.random() * 100}px)`,
+                                    }}
+                                >
+                                    <div
+                                        className="text-md font-semibold flex items-center my-1 mb-3 rounded-full border px-3 py-1 w-fit"
+                                        style={{
+                                            borderColor: searchResult.color,
+                                            backgroundColor: `${searchResult.color ?? '#FFFFFF'}1A`,
+                                            color: searchResult.color,
+                                        }}
+                                    >
+                                        <div className="mr-2 scale-75">{searchResult.icon ?? ''}</div>
+                                        <p className="m-0 pr-1">{searchResult.title}</p>
+                                    </div>
+                                    <p className="mb-2">{searchResult.content}</p>
 
-                                    <div className="flex items-end w-full justify-end px-4">
-                                        <Link href="/" className="link py-1">
-                                            Read more
-                                        </Link>
+                                    <div
+                                        className={`${styles.hiddenHalf} transition-all ease-in-out duration-300 overflow-hidden`}
+                                    >
+                                        <div className="divider my-1" />
+
+                                        <div className="flex items-end w-full justify-end px-0">
+                                            <Link href="/" className="badge badge-ghost py-3 m-0">
+                                                Read more
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
