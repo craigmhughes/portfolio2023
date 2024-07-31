@@ -26,9 +26,14 @@ function Ground({...props}: any): JSX.Element {
 }
 
 function isMatchedResult(result: SearchResultEntry, searchText: string): boolean {
+    const formattedSearchText = searchText.toLowerCase().replace(/ /g, '');
+    if (formattedSearchText.length < 2) {
+        return false;
+    }
+
     const checkKey = (k: keyof typeof result): boolean =>
-        result[k]?.toString().toLowerCase().includes(searchText.toLowerCase()) ?? false;
-    const hasTopic = result.topics?.map((j) => j.toLowerCase()).includes(searchText.toLowerCase());
+        result[k]?.toString().toLowerCase().includes(formattedSearchText) ?? false;
+    const hasTopic = result.topics?.map((j) => j.toLowerCase()).includes(formattedSearchText);
 
     return [...['content', 'title'].map((k) => checkKey(k as keyof typeof result)), hasTopic].includes(true);
 }
@@ -126,7 +131,12 @@ const Home: NextPage = (): JSX.Element => {
                         <div className="chat chat-start">
                             <div className="chat-image avatar">
                                 <div className="w-10 rounded-full">
-                                    <Image alt="Tailwind CSS chat bubble component" src={profile.src} />
+                                    <Image
+                                        alt="Tailwind CSS chat bubble component"
+                                        src={profile.src}
+                                        width={100}
+                                        height={100}
+                                    />
                                 </div>
                             </div>
                             <div className="chat-bubble">
