@@ -14,7 +14,7 @@ import {MeshLambertMaterial} from 'three';
 import Button from '@/components/Button';
 // import IntroText from '@/components/IntroText';
 import Keyboard from '@/components/Keyboard';
-import {searchResults} from '@/components/search-results';
+import {SearchResult, searchResults} from '@/components/search-results';
 import type {SearchResultEntry} from '@/components/search-results';
 import profile from '@/public/profile.jpg';
 import styles from '@/styles/Home.module.css';
@@ -162,42 +162,13 @@ const Home: NextPage = (): JSX.Element => {
                     )}
 
                     <div className="text-sm absolute bottom-[120px] right-0 max-w-lg font-normal overflow-y-scroll no-scrollbar max-h-[500px] rounded-md items-end flex flex-col">
-                        {searchResults
-                            .filter((i) => (cmdText ? isMatchedResult(i, cmdText) : false))
-                            .map((searchResult) => (
-                                <div
-                                    className={`${styles.searchResult} py-3 px-4 bg-midnight text-daylight my-2 rounded cursor-pointer`}
-                                    key={searchResult.title}
-                                    style={{
-                                        maxWidth: `calc(100% - ${searchResult.widthOffset ?? Math.random() * 100}px)`,
-                                    }}
-                                >
-                                    <div
-                                        className="text-md font-semibold flex items-center my-1 mb-3 rounded-full border px-3 py-1 w-fit"
-                                        style={{
-                                            borderColor: searchResult.color,
-                                            backgroundColor: `${searchResult.color ?? '#FFFFFF'}1A`,
-                                            color: searchResult.color,
-                                        }}
-                                    >
-                                        <div className="mr-2 scale-75">{searchResult.icon ?? ''}</div>
-                                        <p className="m-0 pr-1">{searchResult.title}</p>
-                                    </div>
-                                    <p className="mb-2">{searchResult.content}</p>
-
-                                    <div
-                                        className={`${styles.hiddenHalf} transition-all ease-in-out duration-300 overflow-hidden`}
-                                    >
-                                        <div className="divider my-1" />
-
-                                        <div className="flex items-end w-full justify-end px-0">
-                                            <Link href="/" className="badge badge-ghost py-3 m-0">
-                                                Read more
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
+                        {searchResults.map((searchResult) => (
+                            <SearchResult
+                                key={searchResult.title}
+                                {...searchResult}
+                                visible={isMatchedResult(searchResult, cmdText)}
+                            />
+                        ))}
                     </div>
 
                     <div className="mockup-code absolute bottom-5 right-0 w-[calc(100%_-_2.5rem)] max-w-2xl">
