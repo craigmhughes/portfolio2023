@@ -1,4 +1,4 @@
-import RobotoMono from '../public/static/roboto-mono/Roboto Mono Light_Regular.json';
+import RobotoMono from '../../public/static/roboto-mono/Roboto Mono Light_Regular.json';
 
 interface Glyph {
     _cachedOutline: string[];
