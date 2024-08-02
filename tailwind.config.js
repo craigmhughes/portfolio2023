@@ -11,6 +11,15 @@ module.exports = {
             mono: 'Space Mono',
         },
         extend: {
+            keyframes: {
+                wiggle: {
+                    '0%, 100%': {transform: 'rotate(-1deg)'},
+                    '50%': {transform: 'rotate(1deg)'},
+                },
+            },
+            animation: {
+                wiggle: 'wiggle 1s ease-in-out infinite',
+            },
             colors: {
                 midnight: '#191d24',
                 daylight: '#a6adbb',
@@ -23,7 +32,13 @@ module.exports = {
                 salmon: '#E86A92',
                 rust: '#EB5E28',
             },
+            breakpoints: {
+                lg: '1080px',
+            },
         },
     },
     plugins: [require('daisyui')],
+    daisyui: {
+        themes: ['light', 'dark'],
+    },
 };

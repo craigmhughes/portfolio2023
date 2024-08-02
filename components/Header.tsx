@@ -3,7 +3,7 @@ import type {ReactElement} from 'react';
 
 export default function Header(): ReactElement {
     return (
-        <header className="flex items-center font-mono w-full m-auto py-6 px-2 justify-between">
+        <header className="flex items-center font-mono w-full py-6 px-2 justify-between">
             <div className="uppercase">
                 <Link href="/">
                     <p className="text-2xl font-bold my-1">Craig Hughes</p>

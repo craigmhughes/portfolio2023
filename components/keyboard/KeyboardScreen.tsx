@@ -4,8 +4,8 @@ import {Canvas} from '@react-three/fiber';
 
 import Image from 'next/image';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import type {ReactElement} from 'react';
-import {X} from 'react-feather';
+import type {Dispatch, ReactElement, SetStateAction} from 'react';
+import {ArrowDownRight, X} from 'react-feather';
 import FocusLock from 'react-focus-lock';
 import {MeshLambertMaterial} from 'three';
 
@@ -40,7 +40,11 @@ function isMatchedResult(result: SearchResultEntry, searchText: string): boolean
 // Dark = #000001; Light = #222222;
 const planeMaterial = new MeshLambertMaterial({});
 
-export default function KeyboardScreen(): ReactElement {
+interface KeyboardScreenInterface {
+    setScrolled: Dispatch<SetStateAction<number>>;
+}
+
+export default function KeyboardScreen({setScrolled}: KeyboardScreenInterface): ReactElement {
     const groundRef = useRef();
     // const [subtitleText, setSubtitleText] = useState('');
     const subtitleText = '';
@@ -73,11 +77,12 @@ export default function KeyboardScreen(): ReactElement {
     }, [updateKeys]);
 
     // Three.js has trouble hot-reloading & requires a full refresh sometimes. Enable this to test UI changes quickly.
-    const testing = false;
+    const testing = true;
 
     return (
         /* eslint-disable-next-line */
         <div
+            className="flex flex-col justify-between items-center min-h-screen"
             onClick={() => {
                 if (cmdBox.current) cmdBox.current.focus();
             }}
@@ -121,9 +126,18 @@ export default function KeyboardScreen(): ReactElement {
                             I left my keyboard here, try searching some keywords to find more out about me!
                         </div>
                     </div>
-                    <p className="mt-5">
-                        Or, <span className="underline cursor-pointer">Skip to the website</span>
-                    </p>
+                    <button
+                        type="button"
+                        className="reset mt-5 tracking-tight flex items-center flex-row"
+                        onClick={() => {
+                            setScrolled(11);
+                        }}
+                    >
+                        Or,
+                        <span className="hover:animate-wiggle border-b-2 border-black cursor-pointer mx-2 flex items-center tracking-tighter">
+                            Skip to the website <ArrowDownRight className="h-full mx-2" />
+                        </span>
+                    </button>
                 </div>
 
                 {!!cmdText && (
@@ -157,7 +171,7 @@ export default function KeyboardScreen(): ReactElement {
             </div>
 
             {!testing && (
-                <div className={styles.canvasWrap}>
+                <div className={`${styles.canvasWrap} fixed z-1`}>
                     <Canvas shadows="soft">
                         {/* <ambientLight intensity={1} castShadow /> */}
                         <pointLight intensity={6} position={[60, 100, 60]} color="#3377ff" castShadow />
