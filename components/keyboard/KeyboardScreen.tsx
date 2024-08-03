@@ -112,7 +112,7 @@ export default function KeyboardScreen({setScrolled}: KeyboardScreenInterface): 
                 >
                     <h1 className="text-7xl my-4">Hi there!</h1>
                     <div className="chat chat-start">
-                        <div className="chat-image avatar">
+                        <div className="chat-image avatar drop-shadow-xl">
                             <div className="w-10 rounded-full">
                                 <Image
                                     alt="Tailwind CSS chat bubble component"
@@ -122,7 +122,7 @@ export default function KeyboardScreen({setScrolled}: KeyboardScreenInterface): 
                                 />
                             </div>
                         </div>
-                        <div className="chat-bubble">
+                        <div className="chat-bubble bg-ice text-midnight tracking-tighter text-xl shadow-xl">
                             I left my keyboard here, try searching some keywords to find more out about me!
                         </div>
                     </div>
@@ -163,7 +163,7 @@ export default function KeyboardScreen({setScrolled}: KeyboardScreenInterface): 
                     ))}
                 </div>
 
-                <div className="mockup-code absolute bottom-5 right-0 w-[calc(100%_-_2.5rem)] max-w-2xl">
+                <div className="mockup-code bg-midnight absolute bottom-5 right-0 w-[calc(100%_-_2.5rem)] max-w-2xl">
                     <pre data-prefix="$">
                         <code className={cmdState}>{cmdText}</code>
                     </pre>
