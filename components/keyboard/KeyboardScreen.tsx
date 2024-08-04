@@ -18,6 +18,8 @@ import type {SearchResultEntry} from '@/components/search-results';
 import profile from '@/public/profile.jpg';
 import styles from '@/styles/Home.module.css';
 
+import {TypedMessage} from '../TypedMessage';
+
 function Ground({...props}: any): JSX.Element {
     const [ref] = usePlane(() => ({rotation: [-Math.PI / 2, 0, 0], ...props}));
 
@@ -122,8 +124,10 @@ export default function KeyboardScreen({setScrolled}: KeyboardScreenInterface): 
                                 />
                             </div>
                         </div>
-                        <div className="chat-bubble bg-white text-midnight tracking-tighter text-xl shadow-xl">
-                            I left my keyboard here, try searching some keywords to find more out about me!
+                        <div className="chat-bubble bg-white text-midnight tracking-tighter text-xl shadow-xl min-w-[410px] min-h-[100px]">
+                            <TypedMessage>
+                                I left my keyboard here, try searching some keywords to find more out about me!
+                            </TypedMessage>
                         </div>
                     </div>
                     <button
