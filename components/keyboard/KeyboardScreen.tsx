@@ -110,7 +110,7 @@ export default function KeyboardScreen({setScrolled}: KeyboardScreenInterface): 
                     data-testid="welcome-message"
                     className="max-w-lg text-2xl tracking-tighter font-semibold absolute bottom-[350px] left-10 items-center justify-center flex-col"
                 >
-                    <h1 className="text-7xl my-4">Hi there!</h1>
+                    <h1 className="text-7xl my-4 tracking-[-5px]">Hi there!</h1>
                     <div className="chat chat-start">
                         <div className="chat-image avatar drop-shadow-xl">
                             <div className="w-10 rounded-full">
@@ -122,7 +122,7 @@ export default function KeyboardScreen({setScrolled}: KeyboardScreenInterface): 
                                 />
                             </div>
                         </div>
-                        <div className="chat-bubble bg-ice text-midnight tracking-tighter text-xl shadow-xl">
+                        <div className="chat-bubble bg-white text-midnight tracking-tighter text-xl shadow-xl">
                             I left my keyboard here, try searching some keywords to find more out about me!
                         </div>
                     </div>

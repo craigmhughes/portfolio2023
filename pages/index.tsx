@@ -1,9 +1,9 @@
 import {motion} from 'framer-motion';
 import type {NextPage} from 'next';
 import dynamic from 'next/dynamic';
-import Head from 'next/head';
 import {useEffect, useState} from 'react';
 
+import Layout from '@/components/Layout';
 import Content from '@/components/homepage/Content';
 import KeyboardScreen from '@/components/keyboard/KeyboardScreen';
 import styles from '@/styles/Home.module.css';
@@ -40,14 +40,7 @@ const Home: NextPage = (): JSX.Element => {
     }, [scrolled, setScrolled]);
 
     return (
-        <>
-            <Head>
-                <title>Craig Hughes | Portfolio</title>
-                <meta name="description" content="Welcome" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-
+        <Layout disableNav>
             <main className={`${styles.main} relative max-h-screen overflow-hidden`}>
                 <MediaQuery minWidth={1080}>
                     <KeyboardScreen setScrolled={setScrolled} />
@@ -68,7 +61,7 @@ const Home: NextPage = (): JSX.Element => {
                     </div>
                 </MediaQuery>
             </main>
-        </>
+        </Layout>
     );
 };
 

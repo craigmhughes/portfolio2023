@@ -7,10 +7,7 @@ import type {ReactElement} from 'react';
 import Gmail from '@/assets/gmail.svg';
 import Linkedin from '@/assets/linkedin.svg';
 
-interface HeaderInterface {
-    navigation?: boolean;
-    hasTopNotification?: boolean;
-}
+import type {HeaderInterface} from './types';
 
 const navItems = [
     {href: '/', label: 'Projects'},
@@ -18,14 +15,14 @@ const navItems = [
     {href: '/personal', label: 'Personal'},
 ];
 
-export default function Header({navigation, hasTopNotification}: HeaderInterface): ReactElement {
+export default function DesktopHeader({navigation, hasTopNotification}: HeaderInterface): ReactElement {
     const router = useRouter();
 
     return (
         <header
             className={`${
                 hasTopNotification ? 'mt-6' : 'mt-0'
-            } flex items-center font-mono w-full py-6 px-2 justify-between max-w-[1460px] text-black`}
+            } flex items-center font-mono w-11/12 py-6 px-2 justify-between max-w-[1460px] text-black mx-auto`}
         >
             <Head>
                 <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript" />
@@ -101,7 +98,7 @@ export default function Header({navigation, hasTopNotification}: HeaderInterface
     );
 }
 
-Header.defaultProps = {
+DesktopHeader.defaultProps = {
     navigation: false,
     hasTopNotification: false,
 };
