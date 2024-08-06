@@ -27,10 +27,10 @@ export default function DesktopHeader({navigation, hasTopNotification}: HeaderIn
             <Head>
                 <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript" />
             </Head>
-            <div className="uppercase">
+            <div>
                 <Link href="/">
-                    <p className="text-2xl font-bold my-1">Craig Hughes</p>
-                    <p className="text-xs">Software Engineer @ THG Ingenuity</p>
+                    <p className="text-2xl font-bold my-1 font-sans tracking-tighter font-bold">Craig Hughes</p>
+                    <p className="text-xs uppercase">Software Engineer @ THG Ingenuity</p>
                 </Link>
             </div>
             <div>

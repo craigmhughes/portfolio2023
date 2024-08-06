@@ -84,7 +84,7 @@ export default function KeyboardScreen({setScrolled}: KeyboardScreenInterface): 
     return (
         /* eslint-disable-next-line */
         <div
-            className="flex flex-col justify-between items-center min-h-screen"
+            className="flex flex-col justify-between items-center min-h-screen "
             onClick={() => {
                 if (cmdBox.current) cmdBox.current.focus();
             }}
@@ -110,9 +110,9 @@ export default function KeyboardScreen({setScrolled}: KeyboardScreenInterface): 
 
                 <div
                     data-testid="welcome-message"
-                    className="max-w-lg text-2xl tracking-tighter font-semibold absolute bottom-[350px] left-10 items-center justify-center flex-col"
+                    className="max-w-lg text-2xl tracking-tighter font-semibold absolute bottom-[350px] left-[100px] items-center justify-center flex-col"
                 >
-                    <h1 className="text-7xl my-4 tracking-[-5px]">Hi there!</h1>
+                    <h1 className="text-7xl my-4 tracking-tight">Hi there!</h1>
                     <div className="chat chat-start">
                         <div className="chat-image avatar drop-shadow-xl">
                             <div className="w-10 rounded-full">
@@ -124,7 +124,7 @@ export default function KeyboardScreen({setScrolled}: KeyboardScreenInterface): 
                                 />
                             </div>
                         </div>
-                        <div className="chat-bubble bg-white text-midnight tracking-tighter text-xl shadow-xl min-w-[410px] min-h-[100px]">
+                        <div className="chat-bubble bg-white text-midnight tracking-tighter text-xl shadow-xl min-w-[410px] min-h-[75px]">
                             <TypedMessage>
                                 I left my keyboard here, try searching some keywords to find more out about me!
                             </TypedMessage>

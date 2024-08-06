@@ -7,8 +7,8 @@ module.exports = {
     ],
     theme: {
         fontFamily: {
-            sans: ['Work Sans', 'ui-sans-serif', 'system-ui'],
-            mono: 'Space Mono',
+            sans: ['DM Sans', 'ui-sans-serif', 'system-ui'],
+            mono: ['"Barlow"', 'monospace'],
         },
         extend: {
             keyframes: {
