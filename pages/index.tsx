@@ -41,7 +41,7 @@ const Home: NextPage = (): JSX.Element => {
 
     return (
         <Layout disableNav>
-            <main className={`${styles.main} relative max-h-screen overflow-hidden`}>
+            <main className={`${styles.main} relative max-h-screen overflow-hidden overflow-y-scroll`}>
                 <MediaQuery minWidth={1080}>
                     <KeyboardScreen setScrolled={setScrolled} />
 

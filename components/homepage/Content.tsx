@@ -41,7 +41,7 @@ const Content: React.FC<PropsWithChildren<ContentInterface>> = ({setScrolled}) =
         </MediaQuery>
 
         <div className="max-w-screen-2xl w-11/12 mx-auto my-10">
-            <div className="grid grid-rows-4 auto-cols-max">
+            <div className="grid grid-cols-4 gap-4">
                 <ProjectCard
                     title="Project DDQ"
                     summary="Developing a game in C#, focusing on 3D space and physics. Researching game design theory and project management, presenting creative challenges."

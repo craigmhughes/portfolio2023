@@ -14,11 +14,14 @@ interface ProjectCardInterface {
 }
 
 function ProjectCard({...props}: ProjectCardInterface): JSX.Element {
+    const SUMMARY_LIMIT = 120;
+    const summary = props.summary.substring(0, SUMMARY_LIMIT);
+
     return (
         <div
             className={`
-                card bg-base-100 shadow-xl overflow-hidden
-                ${props.large ? 'flex flex-row w-[800px] max-h-[300px]' : 'w-96'}
+                card bg-base-100 shadow-xl overflow-hidden masonry-item w-full h-full
+                ${props.large ? 'flex flex-col md:flex-row col-[span_2]' : 'row-[span_2]'}
             `}
         >
             <figure
@@ -26,14 +29,14 @@ function ProjectCard({...props}: ProjectCardInterface): JSX.Element {
                     backgroundImage: `url(${props.image.src})`,
                 }}
                 className={`relative bg-cover bg-[center_left_-6rem] rounded-none ${
-                    props.large ? 'w-[600px]' : 'h-[200px] w-[200px]'
+                    props.large ? 'w-full h-full' : 'h-[200px] w-[500px]'
                 }`}
             >
                 <Image fill className="hidden" src={props.image.src} alt={props.image.alt} />
             </figure>
-            <div className="card-body text-left">
+            <div className="card-body text-left py-4">
                 <h2 className="card-title tracking-tighter font-bold font-mono flex flex-col gap-3 items-start text-2xl">
-                    <span className="uppercase">&quot; Project DDQ &quot;</span>
+                    <span className="">{props.title}</span>
                     {props.active && (
                         <span className="badge badge-secondary bg-midnight border-midnight font-medium tracking-normal text-xs">
                             Active
@@ -44,7 +47,10 @@ function ProjectCard({...props}: ProjectCardInterface): JSX.Element {
                         </span>
                     )}
                 </h2>
-                <p className="">{props.summary}</p>
+                <p className="mt-4">
+                    {summary}
+                    {props.summary.length > SUMMARY_LIMIT && '...'}
+                </p>
                 <div className="flex flex-col items-end gap-4 text-sm">
                     <Link href="/" className="link py-1 font-semibold">
                         Read more
