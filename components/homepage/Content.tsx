@@ -2,7 +2,9 @@ import dynamic from 'next/dynamic';
 import type {Dispatch, PropsWithChildren, SetStateAction} from 'react';
 import {ChevronUp} from 'react-feather';
 
-import DDQGarage from '@/assets/projects/ddq-garage.gif';
+import DDQGarage from '@/assets/projects/ddq/garage.png';
+import DDQPause from '@/assets/projects/ddq/pause.png';
+import DDQPitch from '@/assets/projects/ddq/pitch.png';
 
 import Header from '../Header';
 import ProjectCard from '../ProjectCard';
@@ -46,10 +48,20 @@ const Content: React.FC<PropsWithChildren<ContentInterface>> = ({setScrolled}) =
                     title="Project DDQ"
                     summary="Developing a game in C#, focusing on 3D space and physics. Researching game design theory and project management, presenting creative challenges."
                     tags={['C#', 'Unity', 'Game Development', '3D', 'Modelling', 'UI Design', 'Programming']}
-                    image={{
-                        src: DDQGarage.src,
-                        alt: 'A computer game, a car is spinning on a plinth as the user selects a new part for the car from a menu.',
-                    }}
+                    image={[
+                        {
+                            src: DDQPause.src,
+                            alt: 'A computer game, a car is spinning on a plinth as the user selects a new part for the car from a menu.',
+                        },
+                        {
+                            src: DDQPitch.src,
+                            alt: 'A computer game, a car is spinning on a plinth as the user selects a new part for the car from a menu.',
+                        },
+                        {
+                            src: DDQGarage.src,
+                            alt: 'A computer game, a car is spinning on a plinth as the user selects a new part for the car from a menu.',
+                        },
+                    ]}
                     large
                     active
                 />

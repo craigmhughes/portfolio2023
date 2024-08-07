@@ -1,13 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+interface ProjectImage {
+    src: string;
+    alt: string;
+}
+
 interface ProjectCardInterface {
     title: string;
     summary: string;
-    image: {
-        src: string;
-        alt: string;
-    };
+    image: ProjectImage | ProjectImage[];
     tags?: string[];
     large?: boolean;
     active?: boolean;
@@ -17,6 +19,9 @@ function ProjectCard({...props}: ProjectCardInterface): JSX.Element {
     const SUMMARY_LIMIT = 120;
     const summary = props.summary.substring(0, SUMMARY_LIMIT);
 
+    const imageArray = Array.isArray(props.image) && props.image;
+    const image = !Array.isArray(props.image) && props.image;
+
     return (
         <div
             className={`
@@ -25,14 +30,40 @@ function ProjectCard({...props}: ProjectCardInterface): JSX.Element {
             `}
         >
             <figure
-                style={{
-                    backgroundImage: `url(${props.image.src})`,
-                }}
                 className={`relative bg-cover bg-[center_left_-6rem] rounded-none ${
                     props.large ? 'w-full h-full' : 'h-[200px] w-[500px]'
                 }`}
             >
-                <Image fill className="hidden" src={props.image.src} alt={props.image.alt} />
+                {imageArray ? (
+                    <div className="relative h-full w-full">
+                        <div className="carousel w-full h-full">
+                            {imageArray.map((img) => (
+                                <div
+                                    id={`item${imageArray.indexOf(img)}`}
+                                    className="carousel-item w-full h-full"
+                                    key={img.alt.substring(0, 10)}
+                                >
+                                    {/* Daisy UI uses img rather than Image. */}
+                                    {/* eslint-disable-next-line */}
+                                    <img className="object-cover h-full w-full" src={img.src} alt={img.alt} />
+                                </div>
+                            ))}
+                        </div>
+                        <div className="flex w-full justify-center gap-2 py-2 absolute bottom-2">
+                            {imageArray.map((img, i) => (
+                                <a
+                                    href={`#item${i}`}
+                                    className="h-2 w-2 bg-midnight rounded-full"
+                                    key={img.alt.substring(0, 10)}
+                                >
+                                    <p className="sr-only">View image ${i + 1}</p>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+                    image && <Image fill className="hidden" src={image.src} alt={image.alt} />
+                )}
             </figure>
             <div className="card-body text-left py-4">
                 <h2 className="card-title tracking-tighter font-bold font-mono flex flex-col gap-3 items-start text-2xl">
