@@ -2,7 +2,7 @@ import {Text3D} from '@react-three/drei';
 
 import type {Dispatch, SetStateAction} from 'react';
 
-import Fonts from './Fonts';
+import Fonts from './keyboard/Fonts';
 
 export function animateText(stringToAnimate: string, setState: Dispatch<SetStateAction<string>>): void {
     const newString: string[] = [];
