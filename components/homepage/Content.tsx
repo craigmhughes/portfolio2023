@@ -2,6 +2,12 @@ import dynamic from 'next/dynamic';
 import type {Dispatch, PropsWithChildren, SetStateAction} from 'react';
 import {ChevronUp} from 'react-feather';
 
+import Campuschat from '@/assets/projects/Campuschat.png';
+import Elemental from '@/assets/projects/Elemental.png';
+import Quaker from '@/assets/projects/Quaker.jpg';
+import Sitebuilder from '@/assets/projects/SitebuilderAlt.png';
+import TidyTube from '@/assets/projects/TidyTube.jpg';
+import Webcipe from '@/assets/projects/Webcipe.png';
 import DDQGarage from '@/assets/projects/ddq/garage.png';
 import DDQPause from '@/assets/projects/ddq/pause.png';
 import DDQPitch from '@/assets/projects/ddq/pitch.png';
@@ -64,6 +70,68 @@ const Content: React.FC<PropsWithChildren<ContentInterface>> = ({setScrolled}) =
                     ]}
                     large
                     active
+                />
+
+                <ProjectCard
+                    title="Elemental"
+                    summary="Developing a game in C#, focusing on 3D space and physics. Researching game design theory and project management, presenting creative challenges."
+                    tags={['C#', 'Unity', 'Game Development', '3D', 'Modelling', 'UI Design', 'Programming']}
+                    image={{
+                        src: Elemental.src,
+                        alt: 'A computer game, a car is spinning on a plinth as the user selects a new part for the car from a menu.',
+                    }}
+                />
+
+                <ProjectCard
+                    title="Sitebuilder"
+                    summary="Developing a game in C#, focusing on 3D space and physics. Researching game design theory and project management, presenting creative challenges."
+                    tags={['C#', 'Unity', 'Game Development', '3D', 'Modelling', 'UI Design', 'Programming']}
+                    image={{
+                        src: Sitebuilder.src,
+                        alt: 'A computer game, a car is spinning on a plinth as the user selects a new part for the car from a menu.',
+                    }}
+                />
+
+                <ProjectCard
+                    title="Campus Chat"
+                    summary="Developing a game in C#, focusing on 3D space and physics. Researching game design theory and project management, presenting creative challenges."
+                    tags={['C#', 'Unity', 'Game Development', '3D', 'Modelling', 'UI Design', 'Programming']}
+                    image={{
+                        src: Campuschat.src,
+                        alt: 'A computer game, a car is spinning on a plinth as the user selects a new part for the car from a menu.',
+                    }}
+                />
+
+                <ProjectCard
+                    title="Webcipe"
+                    summary="Developing a game in C#, focusing on 3D space and physics. Researching game design theory and project management, presenting creative challenges."
+                    tags={['C#', 'Unity', 'Game Development', '3D', 'Modelling', 'UI Design', 'Programming']}
+                    image={{
+                        src: Webcipe.src,
+                        alt: 'A computer game, a car is spinning on a plinth as the user selects a new part for the car from a menu.',
+                    }}
+                />
+
+                <ProjectCard
+                    title="TidyTube"
+                    summary="Developing a game in C#, focusing on 3D space and physics. Researching game design theory and project management, presenting creative challenges."
+                    tags={['C#', 'Unity', 'Game Development', '3D', 'Modelling', 'UI Design', 'Programming']}
+                    image={{
+                        src: TidyTube.src,
+                        alt: 'A computer game, a car is spinning on a plinth as the user selects a new part for the car from a menu.',
+                    }}
+                    large
+                />
+
+                <ProjectCard
+                    title="Quaker"
+                    summary="Developing a game in C#, focusing on 3D space and physics. Researching game design theory and project management, presenting creative challenges."
+                    tags={['C#', 'Unity', 'Game Development', '3D', 'Modelling', 'UI Design', 'Programming']}
+                    image={{
+                        src: Quaker.src,
+                        alt: 'A computer game, a car is spinning on a plinth as the user selects a new part for the car from a menu.',
+                    }}
+                    large
                 />
             </div>
         </div>

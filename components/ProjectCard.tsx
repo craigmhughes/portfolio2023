@@ -31,7 +31,7 @@ function ProjectCard({...props}: ProjectCardInterface): JSX.Element {
         >
             <figure
                 className={`relative bg-cover bg-[center_left_-6rem] rounded-none ${
-                    props.large ? 'w-full h-full' : 'h-[200px] w-[500px]'
+                    props.large ? 'w-full h-full' : 'h-[200px] w-full'
                 }`}
             >
                 {imageArray ? (
@@ -62,18 +62,18 @@ function ProjectCard({...props}: ProjectCardInterface): JSX.Element {
                         </div>
                     </div>
                 ) : (
-                    image && <Image fill className="hidden" src={image.src} alt={image.alt} />
+                    image && <Image fill className="object-cover h-full w-full" src={image.src} alt={image.alt} />
                 )}
             </figure>
             <div className="card-body text-left py-4">
-                <h2 className="card-title tracking-tighter font-bold font-mono flex flex-col gap-3 items-start text-2xl">
+                <h2 className="card-title tracking-tighter font-bold font-sans flex flex-col gap-3 items-start text-2xl">
                     <span className="">{props.title}</span>
                     {props.active && (
-                        <span className="badge badge-secondary bg-midnight border-midnight font-medium tracking-normal text-xs">
+                        <span className="badge bg-emeraldLight text-emeraldDark border-0 font-medium tracking-normal text-xs">
                             Active
                             <span className="relative flex h-1.5 w-1.5 ml-2 items-center justify-center">
-                                <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald opacity-75" />
-                                <span className="relative inline-flex rounded-full h-1 w-1 bg-emerald" />
+                                <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emeraldDark opacity-75" />
+                                <span className="relative inline-flex rounded-full h-1 w-1 bg-emeraldDark" />
                             </span>
                         </span>
                     )}

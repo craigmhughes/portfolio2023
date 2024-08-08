@@ -27,6 +27,8 @@ module.exports = {
                 kite: '#256EFF',
                 regal: '#46237A',
                 emerald: '#3DDC97',
+                emeraldLight: '#A0EECC',
+                emeraldDark: '#188857',
                 folly: '#FF495C',
                 daisy: '#F7E733',
                 salmon: '#E86A92',
