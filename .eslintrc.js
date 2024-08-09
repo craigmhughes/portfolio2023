@@ -34,5 +34,6 @@ module.exports = {
         'import/no-extraneous-dependencies': 0,
         'no-plusplus': ['error', {allowForLoopAfterthoughts: true}],
         'import/no-named-as-default': 0,
+        'react/default-props-match-prop-types': "off",
     },
 };

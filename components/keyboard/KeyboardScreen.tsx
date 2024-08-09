@@ -4,7 +4,7 @@ import {Canvas} from '@react-three/fiber';
 
 import Image from 'next/image';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import type {Dispatch, ReactElement, SetStateAction} from 'react';
+import type {ReactElement} from 'react';
 import {ArrowDownRight, X} from 'react-feather';
 import FocusLock from 'react-focus-lock';
 import {MeshLambertMaterial} from 'three';
@@ -42,11 +42,7 @@ function isMatchedResult(result: SearchResultEntry, searchText: string): boolean
 // Dark = #000001; Light = #222222;
 const planeMaterial = new MeshLambertMaterial({});
 
-interface KeyboardScreenInterface {
-    setScrolled: Dispatch<SetStateAction<number>>;
-}
-
-export default function KeyboardScreen({setScrolled}: KeyboardScreenInterface): ReactElement {
+export default function KeyboardScreen(): ReactElement {
     const groundRef = useRef();
     // const [subtitleText, setSubtitleText] = useState('');
     const subtitleText = '';
@@ -130,13 +126,7 @@ export default function KeyboardScreen({setScrolled}: KeyboardScreenInterface): 
                             </TypedMessage>
                         </div>
                     </div>
-                    <button
-                        type="button"
-                        className="reset mt-5 tracking-tight flex items-center flex-row"
-                        onClick={() => {
-                            setScrolled(11);
-                        }}
-                    >
+                    <button type="button" className="reset mt-5 tracking-tight flex items-center flex-row">
                         Or,
                         <span className="hover:animate-wiggle border-b-2 border-black cursor-pointer mx-2 flex items-center tracking-tighter">
                             Skip to the website <ArrowDownRight className="h-full mx-2" />
