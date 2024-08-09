@@ -15,28 +15,25 @@ function ProjectCard({...props}: ProjectInterface): JSX.Element {
     const imageArray = Array.isArray(props.image) && props.image;
     const image = !Array.isArray(props.image) && props.image;
 
+    const figureLg = props.large ?? props.expanded;
+
     return (
-        <button
-            type="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-                if ((e.key === 'Space' || e.key === 'Enter') && !props.expanded && props.setActiveProject) {
-                    props?.setActiveProject({...props});
-                }
-            }}
+        // Revisit. A11Y fix needed, interactive items only but changing to button breaks layout.
+        // eslint-disable-next-line
+        <div
             onClick={() => {
                 if (!props.expanded && props.setActiveProject) props.setActiveProject({...props});
             }}
             className={`
-                card bg-base-100 shadow-xl overflow-hidden masonry-item w-full h-full cursor-pointer
+                reset card bg-base-100 shadow-xl overflow-hidden masonry-item w-full h-full cursor-pointer
                 ${props.expanded ? 'flex flex-col md:flex-row max-w-[800px]' : ''}
                 ${props.large && !props.expanded ? 'flex flex-col md:flex-row col-[span_2]' : 'row-[span_2]'}
             `}
         >
             <figure
-                className={`relative bg-cover bg-[center_left_-6rem] rounded-none h-auto ${
-                    props.large ?? props.expanded ? 'w-full h-full' : 'min-h-[200px] w-full'
-                } ${props.expanded ? 'min-w-[400px]' : ''}`}
+                className={`relative bg-cover bg-[center_left_-6rem] rounded-none  ${
+                    figureLg ? 'w-full h-full' : 'min-h-[200px] w-full h-auto'
+                } ${props.expanded ? 'min-w-[400px] h-auto' : ''}`}
             >
                 {imageArray ? (
                     <div className="relative h-full w-full">
@@ -62,7 +59,7 @@ function ProjectCard({...props}: ProjectInterface): JSX.Element {
                         </div>
                     </div>
                 ) : (
-                    image && <Image fill className="object-cover h-full w-full" src={image.src} alt={image.alt} />
+                    image && <Image fill className="object-cover w-full" src={image.src} alt={image.alt} />
                 )}
             </figure>
             <div className={`card-body text-left py-8 ${props.expanded ? 'max-w-[500px]' : ''}`}>
@@ -103,7 +100,7 @@ function ProjectCard({...props}: ProjectInterface): JSX.Element {
                     </div>
                 </div>
             </div>
-        </button>
+        </div>
     );
 }
 

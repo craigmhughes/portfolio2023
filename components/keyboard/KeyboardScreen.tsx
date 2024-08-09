@@ -75,7 +75,7 @@ export default function KeyboardScreen(): ReactElement {
     }, [updateKeys]);
 
     // Three.js has trouble hot-reloading & requires a full refresh sometimes. Enable this to test UI changes quickly.
-    const testing = true;
+    const testing = false;
 
     return (
         /* eslint-disable-next-line */
@@ -126,12 +126,12 @@ export default function KeyboardScreen(): ReactElement {
                             </TypedMessage>
                         </div>
                     </div>
-                    <button type="button" className="reset mt-5 tracking-tight flex items-center flex-row">
+                    <a href="#projects" className="reset mt-5 tracking-tight flex items-center flex-row">
                         Or,
                         <span className="hover:animate-wiggle border-b-2 border-black cursor-pointer mx-2 flex items-center tracking-tighter">
                             Skip to the website <ArrowDownRight className="h-full mx-2" />
                         </span>
-                    </button>
+                    </a>
                 </div>
 
                 {!!cmdText && (
@@ -165,7 +165,7 @@ export default function KeyboardScreen(): ReactElement {
             </div>
 
             {!testing && (
-                <div className={`${styles.canvasWrap} fixed z-1`}>
+                <div className={`${styles.canvasWrap} z-1`}>
                     <Canvas shadows="soft">
                         {/* <ambientLight intensity={1} castShadow /> */}
                         <pointLight intensity={6} position={[60, 100, 60]} color="#3377ff" castShadow />
