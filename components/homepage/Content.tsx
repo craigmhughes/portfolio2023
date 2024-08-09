@@ -4,6 +4,7 @@ import {ChevronUp} from 'react-feather';
 
 import Campuschat from '@/assets/projects/Campuschat.png';
 import Elemental from '@/assets/projects/Elemental.png';
+import Portfolio from '@/assets/projects/Portfolio.png';
 import Quaker from '@/assets/projects/Quaker.jpg';
 import Sitebuilder from '@/assets/projects/SitebuilderAlt.png';
 import TidyTube from '@/assets/projects/TidyTube.jpg';
@@ -120,7 +121,6 @@ const Content: React.FC<PropsWithChildren<ContentInterface>> = ({setScrolled}) =
                         src: TidyTube.src,
                         alt: 'A computer game, a car is spinning on a plinth as the user selects a new part for the car from a menu.',
                     }}
-                    large
                 />
 
                 <ProjectCard
@@ -129,6 +129,16 @@ const Content: React.FC<PropsWithChildren<ContentInterface>> = ({setScrolled}) =
                     tags={['C#', 'Unity', 'Game Development', '3D', 'Modelling', 'UI Design', 'Programming']}
                     image={{
                         src: Quaker.src,
+                        alt: 'A computer game, a car is spinning on a plinth as the user selects a new part for the car from a menu.',
+                    }}
+                />
+
+                <ProjectCard
+                    title="This Portfolio!"
+                    summary="Developing a game in C#, focusing on 3D space and physics. Researching game design theory and project management, presenting creative challenges."
+                    tags={['C#', 'Unity', 'Game Development', '3D', 'Modelling', 'UI Design', 'Programming']}
+                    image={{
+                        src: Portfolio.src,
                         alt: 'A computer game, a car is spinning on a plinth as the user selects a new part for the car from a menu.',
                     }}
                     large
