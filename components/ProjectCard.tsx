@@ -43,7 +43,7 @@ function ProjectCard({...props}: ProjectInterface): JSX.Element {
                 {imageArray ? (
                     <div className="relative h-full w-full min-h-[350px]">
                         <div className="carousel w-full h-full min-h-[350px]">
-                            {imageArray.map((img) => (
+                            {(props.min ? [imageArray[0]] : imageArray).map((img) => (
                                 <div
                                     id={`item${imageArray.indexOf(img)}`}
                                     className="carousel-item w-full h-full min-h-[350px]"
@@ -59,14 +59,20 @@ function ProjectCard({...props}: ProjectInterface): JSX.Element {
                                 </div>
                             ))}
                         </div>
-                        <div className="flex w-full justify-center py-2 absolute bottom-2">
-                            {imageArray.map((img, i) => (
-                                <a href={`#item${i}`} className="p-2 flex items-center justify-center" key={img.alt}>
-                                    <span className="h-2 w-2 bg-midnight rounded-full" />
-                                    <p className="sr-only">View image ${i + 1}</p>
-                                </a>
-                            ))}
-                        </div>
+                        {!props.min && (
+                            <div className="flex w-full justify-center py-2 absolute bottom-2">
+                                {imageArray.map((img, i) => (
+                                    <a
+                                        href={`#item${i}`}
+                                        className="p-2 flex items-center justify-center"
+                                        key={img.alt}
+                                    >
+                                        <span className="h-2 w-2 bg-midnight rounded-full" />
+                                        <p className="sr-only">View image ${i + 1}</p>
+                                    </a>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 ) : (
                     image && <Image fill className="object-cover w-full" src={image.src} alt={image.alt} />
