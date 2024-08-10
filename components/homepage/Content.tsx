@@ -11,7 +11,7 @@ const Content: React.FC<PropsWithChildren> = () => {
 
     return (
         <div className="max-w-[1340px] mx-auto w-11/12">
-            <h2 className="text-6xl my-20 text-center" id="projects">
+            <h2 className="text-6xl my-20 text-center font-semibold tracking-tight" id="projects">
                 Personal Projects
             </h2>
             <AnimatePresence>
@@ -31,7 +31,7 @@ const Content: React.FC<PropsWithChildren> = () => {
             </AnimatePresence>
 
             <div className="max-w-screen-2xl mx-auto my-10 relative">
-                <div className="flex flex-col md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-4 scale-[0.9]">
+                <div className="flex flex-col md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-4">
                     {projects.map((project) => (
                         <ProjectCard {...project} key={project.title} setActiveProject={setActiveProject} />
                     ))}
