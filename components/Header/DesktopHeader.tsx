@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import {useRouter} from 'next/router';
 import type {ReactElement} from 'react';
 
 import Gmail from '@/assets/gmail.svg';
@@ -9,14 +8,16 @@ import Linkedin from '@/assets/linkedin.svg';
 
 import type {HeaderInterface} from './types';
 
-const navItems = [
-    {href: '/', label: 'Projects'},
-    {href: '/work-history', label: 'Work History'},
-    {href: '/personal', label: 'Personal'},
-];
+// import {useRouter} from 'next/router';
+
+// const navItems = [
+//     {href: '/', label: 'Projects'},
+//     {href: '/work-history', label: 'Work History'},
+//     {href: '/personal', label: 'Personal'},
+// ];
 
 export default function DesktopHeader({navigation, hasTopNotification}: HeaderInterface): ReactElement {
-    const router = useRouter();
+    // const router = useRouter();
 
     return (
         <header
@@ -34,7 +35,7 @@ export default function DesktopHeader({navigation, hasTopNotification}: HeaderIn
                 </Link>
             </div>
             <div>
-                {!navigation ? (
+                {/* {!navigation ? (
                     <Link href="mailto:hghscraig@gmail.com" className="text-sm link">
                         hghscraig@gmail.com
                     </Link>
@@ -54,7 +55,7 @@ export default function DesktopHeader({navigation, hasTopNotification}: HeaderIn
                             );
                         })}
                     </nav>
-                )}
+                )} */}
             </div>
             {navigation && (
                 <ul className="menu menu-horizontal bg-slate-50 rounded-box">
@@ -64,6 +65,7 @@ export default function DesktopHeader({navigation, hasTopNotification}: HeaderIn
                             href="https://uk.linkedin.com/in/craig-m-hughes"
                             target="_blank"
                             rel="noreferrer"
+                            id="linkedInNavItem"
                         >
                             <Image src={Linkedin.src} alt="Linkedin Logo" className="h-5 w-5" height={20} width={20} />
                             <div className="absolute top-10 -left-4 cursor-pointer opacity-0 p-4 group-hover:opacity-100 transition-all">

@@ -30,6 +30,7 @@ module.exports = {
                 emeraldLight: '#A0EECC',
                 emeraldDark: '#188857',
                 folly: '#FF495C',
+                follyLight: '#ffe7ea',
                 daisy: '#F7E733',
                 salmon: '#E86A92',
                 rust: '#EB5E28',

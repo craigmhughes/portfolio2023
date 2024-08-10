@@ -25,28 +25,32 @@ function ProjectCard({...props}: ProjectInterface): JSX.Element {
                 if (!props.expanded && props.setActiveProject) props.setActiveProject({...props});
             }}
             className={`
-                reset card bg-base-100 shadow-xl overflow-hidden masonry-item w-full h-full cursor-pointer
+                reset card bg-base-100 shadow-xl overflow-hidden masonry-item w-full h-fit md:h-full cursor-pointer max-w-[400px] md:max-w-[800px] mx-auto
                 ${props.expanded ? 'flex flex-col md:flex-row max-w-[800px]' : ''}
-                ${props.large && !props.expanded ? 'flex flex-col md:flex-row col-[span_2]' : 'row-[span_2]'}
+                ${props.large && !props.expanded ? 'flex flex-col md:flex-row col-[span_2]' : 'lg:row-[span_2]'}
             `}
         >
             <figure
-                className={`relative bg-cover bg-[center_left_-6rem] rounded-none  ${
+                className={`relative bg-cover bg-[center_left_-6rem] rounded-none min-h-[200px]  ${
                     figureLg ? 'w-full h-full' : 'min-h-[200px] w-full h-auto'
-                } ${props.expanded ? 'min-w-[400px] h-auto' : ''}`}
+                } ${props.expanded ? 'min-w-[400px] h-auto min-h-[350px]' : ''}`}
             >
                 {imageArray ? (
-                    <div className="relative h-full w-full">
-                        <div className="carousel w-full h-full">
+                    <div className="relative h-full w-full min-h-[350px]">
+                        <div className="carousel w-full h-full min-h-[350px]">
                             {imageArray.map((img) => (
                                 <div
                                     id={`item${imageArray.indexOf(img)}`}
-                                    className="carousel-item w-full h-full"
+                                    className="carousel-item w-full h-full min-h-[350px]"
                                     key={img.alt}
                                 >
                                     {/* Daisy UI uses img rather than Image. */}
                                     {/* eslint-disable-next-line */}
-                                    <img className="object-cover h-full w-full" src={img.src} alt={img.alt} />
+                                    <img
+                                        className="object-cover h-full w-full min-h-[350px]"
+                                        src={img.src}
+                                        alt={img.alt}
+                                    />
                                 </div>
                             ))}
                         </div>

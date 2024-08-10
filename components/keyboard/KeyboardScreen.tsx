@@ -102,7 +102,7 @@ export default function KeyboardScreen(): ReactElement {
                 className="absolute z-10 text-black w-full h-full max-w-screen-2xl px-8"
                 data-testid="canvas-content-wrapper"
             >
-                <Header />
+                <Header navigation />
 
                 <div
                     data-testid="welcome-message"

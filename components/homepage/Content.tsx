@@ -31,7 +31,7 @@ const Content: React.FC<PropsWithChildren> = () => {
             </AnimatePresence>
 
             <div className="max-w-screen-2xl mx-auto my-10 relative">
-                <div className="grid grid-cols-4 gap-4">
+                <div className="flex flex-col md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-4 scale-[0.9]">
                     {projects.map((project) => (
                         <ProjectCard {...project} key={project.title} setActiveProject={setActiveProject} />
                     ))}

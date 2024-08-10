@@ -72,3 +72,7 @@ body > div {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
+
+#linkedInNavItem .LI-profile-badge {
+    background-color: transparent;
+}
