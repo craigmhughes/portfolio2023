@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import type {Dispatch, SetStateAction} from 'react';
+import {ExternalLink} from 'react-feather';
 import MediaQuery from 'react-responsive';
 
 import type {Project} from './homepage/Projects';
@@ -125,7 +126,7 @@ function ProjectCard({...props}: ProjectInterface): JSX.Element {
                 </div>
                 {props.expanded && (
                     <>
-                        <div className="flex flex-row gap-4">
+                        <div className="flex flex-col sm:max-md:flex-row gap-4">
                             <button
                                 className="btn btn-outline"
                                 type="button"
@@ -140,14 +141,15 @@ function ProjectCard({...props}: ProjectInterface): JSX.Element {
                                     href={props.link.href}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="btn bg-midnight"
+                                    className="btn bg-midnight flex gap-2"
                                     type="button"
                                 >
-                                    {props.link.label}
+                                    {props.link.label} <ExternalLink />
                                 </a>
                             )}
                         </div>
-                        <MediaQuery maxHeight="800px">
+
+                        <MediaQuery maxWidth={700}>
                             <div className="h-[100px]" />
                         </MediaQuery>
                     </>
