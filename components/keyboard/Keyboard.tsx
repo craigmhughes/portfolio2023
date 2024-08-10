@@ -4,6 +4,7 @@ import {useGLTF, useHelper} from '@react-three/drei';
 import {useFrame} from '@react-three/fiber';
 import type {MeshProps} from '@react-three/fiber';
 
+import {useRouter} from 'next/router';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {MeshLambertMaterial} from 'three';
 import type {Object3D, Vector3} from 'three';
@@ -19,8 +20,10 @@ const keyIndexes = [
 ];
 
 export default function Keyboard({...props}: any): JSX.Element {
+    const router = useRouter();
+    const {basePath} = router;
     const [ref] = useBox(() => ({mass: 1, args: [115, 12, 40], rotation: [Math.PI / 12, 0, 0], ...props}));
-    const {nodes}: any = useGLTF('/keyboard_updated2.gltf');
+    const {nodes}: any = useGLTF(`${basePath}/models/keyboard_updated2.gltf`);
 
     // const material = new MeshLambertMaterial({color: '#161618'});
     const material = new MeshLambertMaterial({color: '#222222'});
