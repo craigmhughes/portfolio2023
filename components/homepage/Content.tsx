@@ -84,7 +84,7 @@ const Content: React.FC<PropsWithChildren<ContentInterface>> = ({setActiveProjec
                                 setActiveProject(undefined);
                             }}
                         />
-                        <motion.div className="fixed">
+                        <motion.div className="fixed max-md:w-screen max-md:h-screen max-md:[&>div]:h-screen max-md:[&>div]:rounded-none max-md:[&_figure]:max-h-[200px]">
                             <ProjectCard {...activeProject} expanded />
                         </motion.div>
                     </div>
@@ -92,7 +92,7 @@ const Content: React.FC<PropsWithChildren<ContentInterface>> = ({setActiveProjec
             </AnimatePresence>
 
             <div className="max-w-screen-2xl mx-auto my-10 relative">
-                <div className="flex flex-col md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-4">
+                <div className="flex flex-col md:grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 md:gap-4">
                     {projects.map((project) => (
                         <ProjectCard {...project} key={project.title} setActiveProject={setActiveProject} />
                     ))}

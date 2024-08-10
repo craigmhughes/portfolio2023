@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import type {Dispatch, SetStateAction} from 'react';
+import MediaQuery from 'react-responsive';
 
 import type {Project} from './homepage/Projects';
 
@@ -27,7 +28,7 @@ function ProjectCard({...props}: ProjectInterface): JSX.Element {
             }}
             className={`
                 reset card bg-base-100 shadow-xl overflow-hidden masonry-item w-full h-fit md:h-full cursor-pointer max-w-[400px] md:max-w-[800px] mx-auto
-                ${props.expanded ? 'flex flex-col md:flex-row max-w-[800px]' : ''}
+                ${props.expanded ? 'flex flex-col md:flex-row max-w-[800px] overflow-y-auto' : ''}
                 ${
                     props.large && !props.expanded && !props.min
                         ? 'flex flex-col md:flex-row col-[span_2]'
@@ -38,7 +39,7 @@ function ProjectCard({...props}: ProjectInterface): JSX.Element {
             <figure
                 className={`relative bg-cover bg-[center_left_-6rem] rounded-none min-h-[200px]  ${
                     figureLg ? 'w-full h-full' : 'min-h-[200px] w-full h-auto'
-                } ${props.expanded ? 'min-w-[400px] h-auto min-h-[350px]' : ''}`}
+                } ${props.expanded ? 'min-w-[400px] h-auto min-h-[450px]' : 'min-w-[250px]'}`}
             >
                 {imageArray ? (
                     <div className="relative h-full w-full min-h-[350px]">
@@ -79,23 +80,30 @@ function ProjectCard({...props}: ProjectInterface): JSX.Element {
                 )}
             </figure>
             <div className={`card-body text-left py-8 ${props.expanded ? 'max-w-[500px]' : ''}`}>
-                <h2 className="card-title tracking-tighter font-bold font-sans flex flex-col gap-3 items-start text-2xl">
-                    <span className="">{props.title}</span>
-                    {props.active && (
-                        <span className="badge bg-emeraldLight text-emeraldDark border-0 font-medium tracking-normal text-xs">
-                            Active
-                            <span className="relative flex h-1.5 w-1.5 ml-2 items-center justify-center">
-                                <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emeraldDark opacity-75" />
-                                <span className="relative inline-flex rounded-full h-1 w-1 bg-emeraldDark" />
+                <div className="card-title tracking-tighter font-bold font-sans flex flex-col gap-3 items-start text-2xl">
+                    <h2>{props.title}</h2>
+                    <div>
+                        {props.active && (
+                            <span className="badge bg-emeraldLight text-emeraldDark border-0 font-medium tracking-normal text-xs">
+                                Active
+                                <span className="relative flex h-1.5 w-1.5 ml-2 items-center justify-center">
+                                    <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emeraldDark opacity-75" />
+                                    <span className="relative inline-flex rounded-full h-1 w-1 bg-emeraldDark" />
+                                </span>
                             </span>
-                        </span>
-                    )}
-                </h2>
-                <p className="my-2">
+                        )}
+                        {props.linkedWith && props.expanded && (
+                            <p className="badge bg-ice text-midnight border-0 py-2 px-4 text-sm font-normal tracking-tight inline">
+                                Created at: <strong className="ml-1">{props.linkedWith}</strong>
+                            </p>
+                        )}
+                    </div>
+                </div>
+                <p className="my-2 h-fit grow-0 mb-4">
                     {summary}
                     {props.summary.length > SUMMARY_LIMIT && !props.expanded && '...'}
                 </p>
-                <div className="flex flex-col items-end gap-4 text-sm">
+                <div className="flex flex-col items-end gap-4 text-sm mb-4">
                     {!props.expanded && (
                         <button
                             type="button"
@@ -115,6 +123,35 @@ function ProjectCard({...props}: ProjectInterface): JSX.Element {
                         ))}
                     </div>
                 </div>
+                {props.expanded && (
+                    <>
+                        <div className="flex flex-row gap-4">
+                            <button
+                                className="btn btn-outline"
+                                type="button"
+                                onClick={() => {
+                                    if (props?.setActiveProject) props?.setActiveProject(undefined);
+                                }}
+                            >
+                                Close
+                            </button>
+                            {props.link && (
+                                <a
+                                    href={props.link.href}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="btn bg-midnight"
+                                    type="button"
+                                >
+                                    {props.link.label}
+                                </a>
+                            )}
+                        </div>
+                        <MediaQuery maxHeight="800px">
+                            <div className="h-[100px]" />
+                        </MediaQuery>
+                    </>
+                )}
             </div>
         </div>
     );
