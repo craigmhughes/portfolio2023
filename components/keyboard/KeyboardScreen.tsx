@@ -106,9 +106,17 @@ export default function KeyboardScreen(): ReactElement {
 
                 <div
                     data-testid="welcome-message"
-                    className="max-w-lg text-2xl tracking-tighter font-semibold absolute bottom-[350px] left-[100px] items-center justify-center flex-col"
+                    className={
+                        'max-w-[550px] text-2xl tracking-tight font-semibold absolute bottom-[250px] left-50px] justify-center flex-col ' +
+                        'card  p-8 scale-[0.9]'
+                    }
                 >
-                    <h1 className="text-7xl my-4 tracking-tight">Hi there!</h1>
+                    <h1 className="text-7xl my-4 tracking-tight font-bold">Hi there!</h1>
+                    <p className="tracking-tighter">
+                        I&apos;m Craig, a Software Engineer working in e-commerce, where I focus on delivering features
+                        that make a difference for our clients.
+                    </p>
+                    <br />
                     <div className="chat chat-start">
                         <div className="chat-image avatar drop-shadow-xl">
                             <div className="w-10 rounded-full">
@@ -120,17 +128,17 @@ export default function KeyboardScreen(): ReactElement {
                                 />
                             </div>
                         </div>
-                        <div className="chat-bubble bg-white text-midnight tracking-tighter text-xl shadow-xl min-w-[410px] min-h-[75px]">
+                        <div className="chat-bubble bg-sky text-ice tracking-tighter text-xl shadow-xl min-w-[410px] min-h-[75px]">
                             <TypedMessage>
                                 I left my keyboard here, try searching some keywords to find more out about me!
                             </TypedMessage>
                         </div>
                     </div>
-                    <a href="#projects" className="reset mt-5 tracking-tight flex items-center flex-row">
-                        Or,
-                        <span className="hover:animate-wiggle border-b-2 border-black cursor-pointer mx-2 flex items-center tracking-tighter">
-                            Skip to the website <ArrowDownRight className="h-full mx-2" />
-                        </span>
+                    <a
+                        href="#aboutme"
+                        className="badge border-0 bg-skyLight hover:bg-skyOvercast text-sky mt-8 text-lg py-4 pl-4 items-center flex"
+                    >
+                        Skip to the website <ArrowDownRight className="h-5 w-5 mx-2" />
                     </a>
                 </div>
 

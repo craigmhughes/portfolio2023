@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type {ReactElement} from 'react';
 
+import Github from '@/assets/github-mark.svg';
 import Gmail from '@/assets/gmail.svg';
 import Linkedin from '@/assets/linkedin.svg';
 
@@ -91,7 +92,17 @@ export default function DesktopHeader({navigation, hasTopNotification}: HeaderIn
                     </li>
                     <li>
                         <a className="hover:bg-slate-100" href="mailto:hghscraig@gmail.com">
-                            <Image src={Gmail.src} alt="Linkedin Logo" className="h-5 w-5" height={20} width={20} />
+                            <Image src={Gmail.src} alt="Gmail Logo" className="h-5 w-5" height={20} width={20} />
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            className="hover:bg-slate-100"
+                            href="https://github.com/craigmhughes"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            <Image src={Github.src} alt="Github Logo" className="h-5 w-5" height={20} width={20} />
                         </a>
                     </li>
                 </ul>

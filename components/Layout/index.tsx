@@ -19,7 +19,9 @@ const Layout: React.FC<LayoutProps> = ({children, disableNav}): JSX.Element => (
 
         {children}
 
-        <footer className="footer footer-center rounded h-[300px] flex items-center justify-center flex-col">
+        <hr />
+
+        <footer className="footer footer-center rounded h-[300px] flex items-center justify-center flex-col w-11/12 mx-auto">
             <p className="badge text-md h-auto bg-follyLight text-folly px-4 py-1 font-bold tracking-tight border-0 flex">
                 <ThumbsUp className="h-4 w-4" /> Thank you for visiting!
             </p>
