@@ -17,19 +17,27 @@ const Content: React.FC<PropsWithChildren> = () => {
                     About Me
                 </h2>
 
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                    culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-
-                {/* <div className="flex justify-center mt-20 items-center">
-                    <a href="https://github.com/craigmhughes" target="_blank" rel="noreferrer" className="bg-ice rounded-[20px]">
-                        <GitHub className="h-8 w-8 stroke-midnight m-3" />
-                    </a>
-                </div> */}
+                <div className="text-lg">
+                    <p>
+                        As a Software Engineer, I specialize in full-stack development with{' '}
+                        <span className="text-sky">JavaScript, React, and Next.JS, </span> building features in back-end
+                        systems and CLI tools using <span className="text-sky">Java, Python, and TypeScript</span>.
+                    </p>
+                    <br />
+                    <p>
+                        I&apos;ve had the opportunity to work on a variety of projects, from delivering new user
+                        interfaces and integrating third-party scripts to automating internal processes and improving
+                        platform functionalities.
+                    </p>
+                    <br />
+                    <p>
+                        While my day-to-day is filled with opportunities to develop using new and varying technologies,
+                        I found myself looking for a new creative challenge in my spare time, leading me to the
+                        development of my game using <span className="text-sky">C# and Unity</span>. I like to think
+                        this mirrors my passion for full-stack development, joining my love of design and programming
+                        skills.
+                    </p>
+                </div>
             </article>
 
             <hr />
