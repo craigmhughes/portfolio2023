@@ -116,7 +116,7 @@ export default function KeyboardScreen({setActiveProject}: KeyboardScreenInterfa
                         'card  p-8 scale-[0.9]'
                     }
                 >
-                    <h1 className="text-7xl my-4 tracking-tight font-bold">Hi there!</h1>
+                    <h1 className="text-7xl my-4 tracking-tight font-bold">Hi there! 👋</h1>
                     <p className="tracking-tighter">
                         I&apos;m Craig, a Software Engineer working in e-commerce, where I focus on delivering features
                         that make a difference for our clients.
