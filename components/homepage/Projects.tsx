@@ -22,6 +22,10 @@ export interface Project {
     large?: boolean;
     active?: boolean;
     linkedWith?: string;
+    link?: {
+        href: string;
+        label: string;
+    };
 }
 
 const projects: Project[] = [
@@ -56,6 +60,10 @@ const projects: Project[] = [
         image: {
             src: Elemental.src,
             alt: 'A logo for the web extension "Elemental". Shows an icon resembling a package on the left and text reading "Elemental, Snapshot your content." on the right',
+        },
+        link: {
+            href: 'https://chromewebstore.google.com/detail/elemental/emphdjbjajekkfccioanmepmchdgfmkp?pli=1&fbclid=IwY2xjawEk0R9leHRuA2FlbQIxMAABHbXVMDvlG-R_wRha2jIVKkyQZOMVD7KzFAsm9eYe3v03gMIgcPyJJRaivw_aem_E41EOT0kvh-dDs9UdznmPw',
+            label: 'View on Chrome Web Store',
         },
     },
     {
@@ -92,6 +100,10 @@ const projects: Project[] = [
             src: Campuschat.src,
             alt: 'A logo for the app "Campus Chat". Shows text reading "Campus Chat" with a speech bubble filling the space of the bottom right.',
         },
+        link: {
+            href: 'https://github.com/craigmhughes/campus-backend',
+            label: 'View on Github',
+        },
     },
     {
         title: 'Webcipe',
@@ -103,6 +115,10 @@ const projects: Project[] = [
             src: Webcipe.src,
             alt: 'A logo for the app "Webcipe". Shows text reading "Webcipe" with a mobile phone showing the launcher icon of the app.',
         },
+        link: {
+            href: 'https://github.com/craigmhughes/webcipe',
+            label: 'View on Github',
+        },
     },
     {
         title: 'TidyTube',
@@ -112,6 +128,10 @@ const projects: Project[] = [
         image: {
             src: TidyTube.src,
             alt: 'A logo for the web extension "Tidy Tube". Shows an icon of stars on the right and text reading "Tidy Tube, version 1.0.0" on the left.',
+        },
+        link: {
+            href: 'https://github.com/craigmhughes/TidyTube',
+            label: 'View on Github',
         },
     },
     {
@@ -123,6 +143,10 @@ const projects: Project[] = [
         image: {
             src: Quaker.src,
             alt: 'A logo for the app "Quaker". Shows text reading "Quaker, The Questionnaire Maker".',
+        },
+        link: {
+            href: 'https://github.com/craigmhughes/quaker',
+            label: 'View on Github',
         },
     },
     {
@@ -144,6 +168,10 @@ const projects: Project[] = [
             alt: 'A picture of Craig, the developer of this site. Underneath is the URL of this page.',
         },
         large: true,
+        link: {
+            href: 'https://github.com/craigmhughes/portfolio2023',
+            label: 'View on Github',
+        },
     },
 ];
 
