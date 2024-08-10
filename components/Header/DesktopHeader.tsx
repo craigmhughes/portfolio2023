@@ -9,22 +9,12 @@ import Linkedin from '@/assets/linkedin.svg';
 
 import type {HeaderInterface} from './types';
 
-// import {useRouter} from 'next/router';
-
-// const navItems = [
-//     {href: '/', label: 'Projects'},
-//     {href: '/work-history', label: 'Work History'},
-//     {href: '/personal', label: 'Personal'},
-// ];
-
 export default function DesktopHeader({navigation, hasTopNotification}: HeaderInterface): ReactElement {
-    // const router = useRouter();
-
     return (
         <header
             className={`${
                 hasTopNotification ? 'mt-6' : 'mt-0'
-            } flex items-center font-mono w-11/12 py-6 px-2 justify-between max-w-[1460px] text-black mx-auto`}
+            } flex items-center font-mono w-11/12 py-6 px-2 justify-between max-w-[1020px] 2xl:max-w-[1420px] text-black mx-auto`}
         >
             <Head>
                 <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript" />
@@ -35,31 +25,9 @@ export default function DesktopHeader({navigation, hasTopNotification}: HeaderIn
                     <p className="text-xs uppercase">Software Engineer @ THG Ingenuity</p>
                 </Link>
             </div>
-            <div>
-                {/* {!navigation ? (
-                    <Link href="mailto:hghscraig@gmail.com" className="text-sm link">
-                        hghscraig@gmail.com
-                    </Link>
-                ) : (
-                    <nav className="text-sm flex gap-6 tracking-tighter">
-                        {navItems.map((navItem) => {
-                            const active = router.pathname === navItem.href;
-
-                            return (
-                                <Link
-                                    key={navItem.label.toUpperCase().replace(/ /g, '_')}
-                                    href={navItem.href}
-                                    className={`${active ? 'bg-slate-100 rounded-full' : ''} px-4 py-1`}
-                                >
-                                    {navItem.label}
-                                </Link>
-                            );
-                        })}
-                    </nav>
-                )} */}
-            </div>
+            <div />
             {navigation && (
-                <ul className="menu menu-horizontal bg-slate-50 rounded-box">
+                <ul className="menu menu-horizontal bg-base-200 rounded-box">
                     <li>
                         <a
                             className="hover:bg-slate-100 group relative"

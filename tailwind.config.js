@@ -11,6 +11,9 @@ module.exports = {
             mono: ['"Barlow"', 'monospace'],
         },
         extend: {
+            screens: {
+                '2xl': '1300px',
+            },
             keyframes: {
                 wiggle: {
                     '0%, 100%': {transform: 'rotate(-1deg)'},

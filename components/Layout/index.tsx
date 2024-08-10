@@ -2,6 +2,7 @@ import Head from 'next/head';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {ExternalLink, ThumbsUp} from 'react-feather';
+import MediaQuery from 'react-responsive';
 
 import Header from '../Header';
 
@@ -37,6 +38,10 @@ const Layout: React.FC<LayoutProps> = ({children, disableNav}): JSX.Element => (
                 </span>
             </a>
         </footer>
+
+        <MediaQuery maxWidth={1080}>
+            <div className="h-[100px] w-full" />
+        </MediaQuery>
     </>
 );
 

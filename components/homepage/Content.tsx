@@ -14,11 +14,25 @@ const Highlight = ({children}: {children: string}): JSX.Element => <span classNa
 interface ContentInterface {
     setActiveProject: Dispatch<SetStateAction<Project | undefined>>;
     activeProject?: Project;
+    showIntro?: boolean;
 }
 
-const Content: React.FC<PropsWithChildren<ContentInterface>> = ({setActiveProject, activeProject}) => (
-    <div className="max-w-[1340px] mx-auto w-10/12">
-        <article className="my-10 md:my-[200px] max-w-[1200px] mx-auto">
+const Content: React.FC<PropsWithChildren<ContentInterface>> = ({setActiveProject, activeProject, showIntro}) => (
+    <div className="max-w-[1200px] mx-auto w-10/12">
+        {showIntro && (
+            <>
+                <div className="text-2xl tracking-tight my-10">
+                    <h1 className="text-7xl my-4 font-bold">Hi there!</h1>
+                    <p>
+                        I&apos;m Craig, a Full-stack Engineer working in e-commerce, where I focus on delivering
+                        features that make a difference for our clients.
+                    </p>
+                </div>
+                <hr />
+            </>
+        )}
+
+        <article className={`my-10 ${!showIntro ? 'lg:my-[200px]' : ''} max-w-[1200px] mx-auto`}>
             <h2 className="text-5xl my-10 text-left font-semibold tracking-tight" id="aboutme">
                 About Me
             </h2>
