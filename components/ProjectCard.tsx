@@ -6,6 +6,7 @@ import type {Project} from './homepage/Projects';
 export interface ProjectInterface extends Project {
     setActiveProject?: Dispatch<SetStateAction<Project | undefined>>;
     expanded?: boolean;
+    min?: boolean;
 }
 
 function ProjectCard({...props}: ProjectInterface): JSX.Element {
@@ -15,7 +16,7 @@ function ProjectCard({...props}: ProjectInterface): JSX.Element {
     const imageArray = Array.isArray(props.image) && props.image;
     const image = !Array.isArray(props.image) && props.image;
 
-    const figureLg = props.large ?? props.expanded;
+    const figureLg = (props.large ?? props.expanded) && !props.min;
 
     return (
         // Revisit. A11Y fix needed, interactive items only but changing to button breaks layout.
@@ -27,7 +28,11 @@ function ProjectCard({...props}: ProjectInterface): JSX.Element {
             className={`
                 reset card bg-base-100 shadow-xl overflow-hidden masonry-item w-full h-fit md:h-full cursor-pointer max-w-[400px] md:max-w-[800px] mx-auto
                 ${props.expanded ? 'flex flex-col md:flex-row max-w-[800px]' : ''}
-                ${props.large && !props.expanded ? 'flex flex-col md:flex-row col-[span_2]' : 'lg:row-[span_2]'}
+                ${
+                    props.large && !props.expanded && !props.min
+                        ? 'flex flex-col md:flex-row col-[span_2]'
+                        : 'lg:row-[span_2]'
+                }
             `}
         >
             <figure
@@ -114,6 +119,7 @@ ProjectCard.defaultProps = {
     active: false,
     setActiveProject: null,
     expanded: false,
+    min: false,
 };
 
 export default ProjectCard;

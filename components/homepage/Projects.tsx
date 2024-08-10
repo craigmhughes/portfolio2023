@@ -75,6 +75,7 @@ const projects: Project[] = [
             'CI / CD',
             'Linting',
             'Express.js',
+            'Styled Components',
         ],
         image: {
             src: Sitebuilder.src,

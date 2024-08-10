@@ -4,7 +4,7 @@ import {Canvas} from '@react-three/fiber';
 
 import Image from 'next/image';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import type {ReactElement} from 'react';
+import type {Dispatch, ReactElement, SetStateAction} from 'react';
 import {ArrowDownRight, X} from 'react-feather';
 import FocusLock from 'react-focus-lock';
 import {MeshLambertMaterial} from 'three';
@@ -13,12 +13,13 @@ import Button from '@/components/Button';
 import Header from '@/components/Header';
 // import IntroText from '@/components/IntroText';
 import Keyboard from '@/components/keyboard/Keyboard';
-import {SearchResult, searchResults} from '@/components/search-results';
-import type {SearchResultEntry} from '@/components/search-results';
+import {SearchResult} from '@/components/search-results';
 import profile from '@/public/profile.jpg';
 import styles from '@/styles/Home.module.css';
 
 import {TypedMessage} from '../TypedMessage';
+import projects from '../homepage/Projects';
+import type {Project} from '../homepage/Projects';
 
 function Ground({...props}: any): JSX.Element {
     const [ref] = usePlane(() => ({rotation: [-Math.PI / 2, 0, 0], ...props}));
@@ -26,23 +27,27 @@ function Ground({...props}: any): JSX.Element {
     return <Plane {...props} ref={ref} />;
 }
 
-function isMatchedResult(result: SearchResultEntry, searchText: string): boolean {
+function isMatchedResult(result: Project, searchText: string): boolean {
     const formattedSearchText = searchText.toLowerCase().replace(/ /g, '');
     if (formattedSearchText.length < 2) {
         return false;
     }
 
     const checkKey = (k: keyof typeof result): boolean =>
-        result[k]?.toString().toLowerCase().includes(formattedSearchText) ?? false;
-    const hasTopic = result.topics?.map((j) => j.toLowerCase()).includes(formattedSearchText);
+        result[k]?.toString().toLowerCase().replace(/ /g, '').includes(formattedSearchText) ?? false;
+    const hasTopic = result.tags?.map((j) => j.toLowerCase().includes(formattedSearchText)).includes(true);
 
-    return [...['content', 'title'].map((k) => checkKey(k as keyof typeof result)), hasTopic].includes(true);
+    return [...['summary', 'title'].map((k) => checkKey(k as keyof typeof result)), hasTopic].includes(true);
 }
 
 // Dark = #000001; Light = #222222;
 const planeMaterial = new MeshLambertMaterial({});
 
-export default function KeyboardScreen(): ReactElement {
+interface KeyboardScreenInterface {
+    setActiveProject: Dispatch<SetStateAction<Project | undefined>>;
+}
+
+export default function KeyboardScreen({setActiveProject}: KeyboardScreenInterface): ReactElement {
     const groundRef = useRef();
     // const [subtitleText, setSubtitleText] = useState('');
     const subtitleText = '';
@@ -155,12 +160,13 @@ export default function KeyboardScreen(): ReactElement {
                     </Button>
                 )}
 
-                <div className="text-sm absolute bottom-[120px] right-0 max-w-lg font-normal overflow-y-scroll no-scrollbar max-h-[500px] rounded-md items-end flex flex-col">
-                    {searchResults.map((searchResult) => (
+                <div className="text-sm absolute bottom-[120px] right-0 max-w-lg font-normal overflow-y-scroll no-scrollbar max-h-[700px] rounded-md items-end flex flex-col">
+                    {projects.map((project) => (
                         <SearchResult
-                            key={searchResult.title}
-                            {...searchResult}
-                            visible={isMatchedResult(searchResult, cmdText)}
+                            key={project.title}
+                            {...project}
+                            visible={isMatchedResult(project, cmdText)}
+                            setActiveProject={setActiveProject}
                         />
                     ))}
                 </div>

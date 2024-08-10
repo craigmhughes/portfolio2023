@@ -1,9 +1,10 @@
 import {AnimatePresence, motion} from 'framer-motion';
-import Link from 'next/link';
+import type {Dispatch, SetStateAction} from 'react';
 
 import styles from '@/styles/Home.module.css';
 
-import type {SearchResultEntry} from './entries';
+import ProjectCard from '../ProjectCard';
+import type {Project} from '../homepage/Projects';
 
 const animation = {
     hidden: {
@@ -26,8 +27,9 @@ const animationTransition = {
     staggerChildren: 1,
 };
 
-interface SearchResultInterface extends SearchResultEntry {
+interface SearchResultInterface extends Project {
     visible: boolean;
+    setActiveProject: Dispatch<SetStateAction<Project | undefined>>;
 }
 
 export function SearchResult({...props}: SearchResultInterface): JSX.Element {
@@ -40,34 +42,10 @@ export function SearchResult({...props}: SearchResultInterface): JSX.Element {
                     animate="visible"
                     exit="hidden"
                     transition={animationTransition}
-                    className={`${styles.searchResult} relative py-3 px-4 bg-midnight text-daylight my-2 rounded cursor-pointer`}
+                    className={`${styles.searchResult} relative py-3 px-4 my-2 rounded cursor-pointer`}
                     key={props.title}
-                    style={{
-                        maxWidth: `calc(100% - ${props.widthOffset ?? Math.random() * 100}px)`,
-                    }}
                 >
-                    <div
-                        className="text-md font-semibold flex items-center my-1 mb-3 rounded-full border px-3 py-1 w-fit"
-                        style={{
-                            borderColor: props.color,
-                            backgroundColor: `${props.color ?? '#FFFFFF'}1A`,
-                            color: props.color,
-                        }}
-                    >
-                        <div className="mr-2 scale-75">{props.icon ?? ''}</div>
-                        <p className="m-0 pr-1">{props.title}</p>
-                    </div>
-                    <p className="mb-2">{props.content}</p>
-
-                    <div className={`${styles.hiddenHalf} transition-all ease-in-out duration-300 overflow-hidden`}>
-                        <div className="divider my-1" />
-
-                        <div className="flex items-end w-full justify-end px-0">
-                            <Link href="/" className="badge badge-ghost py-3 m-0">
-                                Read more
-                            </Link>
-                        </div>
-                    </div>
+                    <ProjectCard {...props} min />
                 </motion.div>
             )}
         </AnimatePresence>
