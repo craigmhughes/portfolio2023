@@ -6,7 +6,10 @@ import type {Dispatch, SetStateAction} from 'react';
 import Layout from '@/components/Layout';
 import Content from '@/components/homepage/Content';
 import type {Project} from '@/components/homepage/Projects';
-import KeyboardScreen from '@/components/keyboard/KeyboardScreen';
+
+// import KeyboardScreen from '@/components/keyboard/KeyboardScreen';
+
+const KeyboardScreen = dynamic(async () => await import('@/components/keyboard/KeyboardScreen'));
 
 const MediaQuery = dynamic(async () => await import('react-responsive'), {
     ssr: false,
@@ -33,6 +36,7 @@ const Home: NextPage = (): JSX.Element => {
             <main className="max-w-screen overflow-x-hidden">
                 <MediaQuery minWidth={1080}>
                     {allowKeyboard && <KeyboardScreen setActiveProject={setActiveProject} />}
+                    {!KeyboardScreen && <div className="min-h-screen" />}
                 </MediaQuery>
 
                 <MediaQuery maxWidth={1080}>

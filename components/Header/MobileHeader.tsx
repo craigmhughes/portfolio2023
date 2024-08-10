@@ -38,7 +38,7 @@ const MobileHeader = (): JSX.Element => (
                     href={navItem.href}
                 >
                     <div className="relative h-6 w-6">
-                        <Image src={navItem.icon} fill alt={navItem.label} />
+                        <Image src={navItem.icon} fill alt={`${navItem.label} Logo`} />
                     </div>
                     <span className="btm-nav-label sr-only">{navItem.label}</span>
                 </a>

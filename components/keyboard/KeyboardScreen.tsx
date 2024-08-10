@@ -91,16 +91,20 @@ export default function KeyboardScreen({setActiveProject}: KeyboardScreenInterfa
             }}
         >
             <FocusLock>
-                <input
-                    type="text"
-                    className="fixed bottom-5 right-5 z-20 opacity-0"
-                    ref={cmdBox}
-                    onChange={(e) => {
-                        setCmdText(e.target.value);
-                    }}
-                    // eslint-disable-next-line
-                    autoFocus
-                />
+                <label htmlFor="cmdInput">
+                    <input
+                        id="cmdInput"
+                        type="text"
+                        className="fixed bottom-5 right-5 z-20 opacity-0"
+                        ref={cmdBox}
+                        onChange={(e) => {
+                            setCmdText(e.target.value);
+                        }}
+                        // eslint-disable-next-line
+                        autoFocus
+                    />
+                    <p className="sr-only">Search a keyword to discover more about me</p>
+                </label>
             </FocusLock>
 
             <div

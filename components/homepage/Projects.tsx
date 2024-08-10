@@ -1,13 +1,13 @@
-import Campuschat from '@/assets/projects/Campuschat.png';
-import Elemental from '@/assets/projects/Elemental.png';
-import Portfolio from '@/assets/projects/Portfolio.png';
-import Quaker from '@/assets/projects/Quaker.jpg';
-import Sitebuilder from '@/assets/projects/SitebuilderAlt.png';
-import TidyTube from '@/assets/projects/TidyTube.jpg';
-import Webcipe from '@/assets/projects/Webcipe.png';
-import DDQGarage from '@/assets/projects/ddq/garage.png';
-import DDQPause from '@/assets/projects/ddq/pause.png';
-import DDQPitch from '@/assets/projects/ddq/pitch.png';
+import Campuschat from '@/assets/projects/Campuschat.webp';
+import Elemental from '@/assets/projects/Elemental.webp';
+import Portfolio from '@/assets/projects/Portfolio.webp';
+import Quaker from '@/assets/projects/Quaker.webp';
+import Sitebuilder from '@/assets/projects/SitebuilderAlt.webp';
+import TidyTube from '@/assets/projects/TidyTube.webp';
+import Webcipe from '@/assets/projects/Webcipe.webp';
+import DDQGarage from '@/assets/projects/ddq/garage.webp';
+import DDQPause from '@/assets/projects/ddq/pause.webp';
+import DDQPitch from '@/assets/projects/ddq/pitch.webp';
 
 interface ProjectImage {
     src: string;

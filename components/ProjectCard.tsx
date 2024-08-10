@@ -59,9 +59,10 @@ function ProjectCard({...props}: ProjectInterface): JSX.Element {
                                 </div>
                             ))}
                         </div>
-                        <div className="flex w-full justify-center gap-2 py-2 absolute bottom-2">
+                        <div className="flex w-full justify-center py-2 absolute bottom-2">
                             {imageArray.map((img, i) => (
-                                <a href={`#item${i}`} className="h-2 w-2 bg-midnight rounded-full" key={img.alt}>
+                                <a href={`#item${i}`} className="p-2 flex items-center justify-center" key={img.alt}>
+                                    <span className="h-2 w-2 bg-midnight rounded-full" />
                                     <p className="sr-only">View image ${i + 1}</p>
                                 </a>
                             ))}
