@@ -6,17 +6,17 @@ import Linkedin from '@/assets/linkedin.svg';
 
 const navItems = [
     {
-        href: '/',
+        href: 'https://github.com/craigmhughes',
         label: 'Github',
         icon: Github,
     },
     {
-        href: '/work-history',
+        href: 'mailto:hghscraig@gmail.com',
         label: 'Gmail',
         icon: Gmail,
     },
     {
-        href: '/personal',
+        href: 'https://www.linkedin.com/in/craig-m-hughes/',
         label: 'LinkedIn',
         icon: Linkedin,
     },
